@@ -722,7 +722,8 @@ ul {
 .img-128 {
   width: 128px;
   height: 128px;
-  over
+  margin-top: 20px;
+  margin-bottom: 5px;
 }
 
 .img-200 {
