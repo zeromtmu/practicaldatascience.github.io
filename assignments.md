@@ -16,13 +16,13 @@ All assignments are due at 11:59pm ET (midnight) on the due date, and will be re
 
 | | Release date | Due date |
 | --- | --- | --- |
-| Homework 1 | 1/22 | 2/5 |
-| Homework 2 | 2/5 | 2/19 |
-| Homework 3 | 2/19 | 3/5 |
-| Tutorial | 2/19 | 2/26 (proposal), 3/26 |
-| Homework 4 | 3/26 | 4/9 |
-| Homework 5 | 4/9 | 4/23 |
-| Final project | 3/5 | 3/21 (proposal), 5/7 (writeup), TBA (video) |
+| Homework 1 | 1/24 | 2/7 |
+| Homework 2 | 2/7 | 2/21 |
+| Homework 3 | 2/21 | 3/7 |
+| Tutorial | 2/21 | 2/28 (proposal), 3/28 |
+| Homework 4 | 3/28 | 4/11 |
+| Homework 5 | 4/11 | 4/25 |
+| Final project | 3/5 | 3/21 (proposal), 5/9 (writeup), TBA (video) |
 
 ## Homeworks
 
