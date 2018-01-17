@@ -19,6 +19,7 @@ title: Instructors
 <div class="row">
 
 <div class="col-sm-4 col-xs-6 text-center"><img class="img-circle img-128" src="/img/umang.jpg"><br/>Umang Bhatt</div>
+<div class="col-sm-4 col-xs-6 text-center"><img class="img-circle img-128" src="/img/michelle.jpg"><br/>Michelle Deng</div>
 <div class="col-sm-4 col-xs-6 text-center"><img class="img-circle img-128" src="/img/mihir.jpg"><br/>Mihir Sanjay Kale</div>
 <div class="col-sm-4 col-xs-6 text-center"><img class="img-circle img-128" src="/img/satya.jpg"><br/>Satyapriya Krishna</div>
 <div class="col-sm-4 col-xs-6 text-center"><img class="img-circle img-128" src="/img/mark.jpg"><br/>Mark Lee</div>
