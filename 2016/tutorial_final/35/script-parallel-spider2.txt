@@ -1,0 +1,1 @@
+[u'Doce Taqueria', u'Meat & Potatoes', u'Eleven', u'Noodlehead', u'Cop Out Pierogies', u'Penn Ave Fish Company', u'Cure', u'Bakersfield Penn Ave', u'Las Palmas Carniceria', u'Ting\u2019s Kitchen']

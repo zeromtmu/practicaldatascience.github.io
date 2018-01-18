@@ -1,0 +1,29 @@
+Boto3 is a really useful tool to connect Python scripts with Amazon Web Service’s (AWS’s) S3 service. AWS’s S3 can categorize and save data, such as an image file’s binary data. Boto3 helps communicate what to save, where to save it and how to label it. To use Boto3, first it needs to be installed and the amazon credentials associated with the account from which S3 will be accessed (usually your account or your company’s account) need to be configured. This can be done like this:
+
+
+
+The necessary information can be saved in what is called a bucket and can be accessed through the Python code or from the Amazon Web Service’s web console by going to the S3 section of the console. Importing Boto3, accessing all of the S3 buckets and then accessing each bucket’s name (which we’ll just print for now) looks like this:
+
+
+
+We can also create our own bucket like this:
+
+
+
+Each piece of information that is saved to a bucket is saved with a key (formatted as a string). This key is an identifier and can double as a way to further subdivide buckets. So, if we know that ‘image-bucket’ is the name of one of the buckets in our S3, we can then save an object to that bucket. This object that we are going to save includes the key that we want to use to identify the data as well as the data itself in the body of the object. We can do that for an image file we have on our local computer like this: 
+
+
+
+Note that if the bucket name that we try to use is not actually the name of a bucket, we will get an error. The easiest way to deal with this is to use a try and except block around the line or lines where the bucket is accessed. In general, this would look like this:
+
+
+
+This is especially helpful in larger projects where the code is going to interact with a single bucket multiple times. In this case, we can just use the head_bucket function on the s3 instance that we created and set a boolean to false if we get an error. Then, any time we access s3 we can just place an object after doing a simple boolean check. It will then place the object in that same bucket whenever we make that kind of call. It is useful to note that the way we place an object in this case has different syntax. This would be done as shown: 
+
+
+
+This is also likely when we are going to want to have our information subdivided. For example, we can divide into when the data was posted on a website that the Python script is crawling. We could have the key be “year/month/day/time/file_name”. This would be done like this:
+
+
+
+Then the information would be divided into year folders and further subdivided into month, day and time folders with the file name used as the data’s identifying name. The data can then be accessed like this: 

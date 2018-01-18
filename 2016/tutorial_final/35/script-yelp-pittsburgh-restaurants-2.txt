@@ -1,0 +1,1 @@
+[u'Point Brugge Caf\xe9', u'Bakersfield Penn Ave', u'Alla Famiglia', u'Cafe\u2019 33', u'Apteka', u'Edgar Tacos Stand', u'Amazing Cafe', u'Proper Brick Oven & Tap Room', u'Cafe Du Jour', u'Peppi\u2019s']

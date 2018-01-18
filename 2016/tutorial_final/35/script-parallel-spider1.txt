@@ -1,0 +1,1 @@
+[u'Gaucho Parrilla Argentina', u't\xe4k\u014d', u'Las Palmas', u'Butcher and the Rye', u'Altius', u'Umbrella Cafe', u'The Twisted Frenchman', u'Legume', u'Smallman Galley', u'The Foundry Table & Tap']

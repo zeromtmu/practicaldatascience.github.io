@@ -1,0 +1,1 @@
+[u'Las Palmas Carniceria', u'Smallman Galley', u'Cop Out Pierogies', u'Eleven', u'B52 Cafe', u'Meat & Potatoes', u'Noodlehead', u'The Foundry Table & Tap', u'Cure', u'Penn Ave Fish Company']

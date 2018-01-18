@@ -1,0 +1,18 @@
+Graph: Directed
+  Nodes:                    81306
+  Edges:                    1768149
+  Zero Deg Nodes:           0
+  Zero InDeg Nodes:         1
+  Zero OutDeg Nodes:        11209
+  NonZero In-Out Deg Nodes: 70096
+  Unique directed edges:    1768149
+  Unique undirected edges:  1342310
+  Self Edges:               14
+  BiDir Edges:              851692
+  Closed triangles:         13082506
+  Open triangles:           190845756
+  Frac. of closed triads:   0.064152
+  Connected component size: 1.000000
+  Strong conn. comp. size:  0.841426
+  Approx. full diameter:    7
+  90% effective diameter:  4.459826

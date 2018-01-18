@@ -1,0 +1,18 @@
+Java QA Stats: Directed
+  Nodes:                    146874
+  Edges:                    333606
+  Zero Deg Nodes:           0
+  Zero InDeg Nodes:         83443
+  Zero OutDeg Nodes:        30963
+  NonZero In-Out Deg Nodes: 32468
+  Unique directed edges:    333606
+  Unique undirected edges:  333481
+  Self Edges:               20600
+  BiDir Edges:              20850
+  Closed triangles:         41389
+  Open triangles:           51597174
+  Frac. of closed triads:   0.000802
+  Connected component size: 0.893201
+  Strong conn. comp. size:  0.029433
+  Approx. full diameter:    11
+  90% effective diameter:  5.590165

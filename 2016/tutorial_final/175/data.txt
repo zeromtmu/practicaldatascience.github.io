@@ -1,0 +1,1052 @@
+### abstract ###
+OWNX The Minimum Description Length principle for online sequence estimation/prediction in a proper learning setup is studied
+MISC If the underlying model class is discrete, then the total expected square loss is a particularly interesting performance measure: (a) this quantity is finitely bounded, implying convergence with probability one, and (b) it additionally specifies the convergence speed
+MISC For MDL, in general one can only have loss bounds which are finite but exponentially larger than those for Bayes mixtures
+AIMX We show that this is even the case if the model class contains only Bernoulli distributions
+OWNX We derive a new upper bound on the prediction error for countable Bernoulli classes
+OWNX This implies a small bound (comparable to the one for Bayes mixtures) for certain important model classes
+OWNX We discuss the application to Machine Learning tasks such as classification and hypothesis testing, and generalization to countable classes of iid models
+### introduction ###
+MISC ``Bayes mixture", ``Solomonoff induction", ``marginalization", all these terms refer to a central induction principle: Obtain a predictive distribution by integrating the product of prior and evidence over the model class
+MISC In many cases however, the Bayes mixture is computationally infeasible, and even a sophisticated approximation is expensive
+MISC The MDL or MAP (maximum a posteriori) estimator is both a common approximation for the Bayes mixture and interesting for its own sake: Use the model with the largest product of prior and evidence
+MISC In practice, the MDL estimator is usually being approximated too, since only a local maximum is determined
+MISC How good are the predictions by Bayes mixtures and MDL
+MISC This question has attracted much attention
+MISC In many cases, an important quality measure is the  total  or cumulative  expected loss  of a predictor
+MISC In particular the square loss is often considered
+MISC Assume that the outcome space is finite, and the model class is continuously parameterized
+MISC Then for Bayes mixture prediction, the cumulative expected square loss is usually small but unbounded, growing with  SYMBOL , where  SYMBOL  is the sample size  CITATION
+MISC This corresponds to an  instantaneous  loss bound of  SYMBOL
+MISC For the MDL predictor, the losses behave similarly  CITATION  under appropriate conditions, in particular with a specific prior
+MISC Note that in order to do MDL for continuous model classes, one needs to  discretize  the parameter space, see also  CITATION
+MISC On the other hand, if the model class is discrete, then Solomonoff's theorem  CITATION  bounds the cumulative expected square loss for the Bayes mixture predictions finitely, namely by  SYMBOL , where  SYMBOL  is the prior weight of the ``true" model  SYMBOL
+MISC The only necessary assumption is that the true distribution  SYMBOL  is contained in the model class, ie that we are dealing with  proper learning
+MISC It has been demonstrated  CITATION , that for both Bayes mixture and MDL, the proper learning assumption can be essential: If it is violated, then learning may fail very badly
+MISC For MDL predictions in the proper learning case, it has been shown  CITATION  that a bound of  SYMBOL  holds
+MISC This bound is exponentially larger than the Solomonoff bound, and it is sharp in general
+MISC A finite bound on the total expected square loss is particularly interesting:   It implies convergence of the predictive to the true probabilities with probability one
+MISC In contrast, an instantaneous loss bound of  SYMBOL  implies only convergence in probability
+MISC Additionally, it gives a  convergence speed , in the sense that errors of a certain magnitude cannot occur too often
+MISC So for both, Bayes mixtures and MDL, convergence with probability one holds, while the convergence speed is exponentially worse for MDL compared to the Bayes mixture
+MISC We avoid the term ``convergence rate" here, since the order of convergence is identical in both cases
+MISC It is eg  SYMBOL  if we additionally assume that the error is monotonically decreasing, which is not necessarily true in general
+MISC It is therefore natural to ask if there are model classes where the cumulative loss of MDL is comparable to that of Bayes mixture predictions
+AIMX In the present work, we concentrate on the simplest possible stochastic case, namely discrete Bernoulli classes
+OWNX Note that then the MDL ``predictor" just becomes an estimator, in that it estimates the true parameter and directly uses that for prediction
+OWNX Nevertheless, for consistency of terminology, we keep the term predictor
+OWNX It might be surprising to discover that in general the cumulative loss is still exponential
+OWNX On the other hand, we will give mild conditions on the prior guaranteeing a small bound
+MISC Moreover, it is well-known that the instantaneous square loss of the Maximum Likelihood estimator decays as  SYMBOL  in the Bernoulli case
+OWNX The same holds for MDL, as we will see
+OWNX If convergence speed is measured in terms of instantaneous losses, then much more general statements are possible  CITATION , this is briefly discussed in Section
+MISC A particular motivation to consider discrete model classes arises in Algorithmic Information Theory
+MISC From a computational point of view, the largest relevant model class is the class of all computable models on some fixed universal Turing machine, precisely prefix machine  CITATION
+MISC Thus each model corresponds to a program, and there are countably many programs
+MISC Moreover, the models are stochastic, precisely they are  semimeasures  on strings (programs need not halt, otherwise the models were even measures)
+MISC Each model has a natural description length, namely the length of the corresponding program
+MISC If we agree that programs are binary strings, then a prior is defined by two to the negative description length
+MISC By the Kraft inequality, the priors sum up to at most one
+MISC Also the Bernoulli case can be studied in the view of Algorithmic Information Theory
+MISC We call this the  universal setup : Given a universal Turing machine, the related class of Bernoulli distributions is isomorphic to the countable set of computable reals in  SYMBOL
+MISC The description length  SYMBOL  of a parameter  SYMBOL  is then given by the length of its shortest program
+MISC A prior weight may then be defined by  SYMBOL
+MISC If a string  SYMBOL  is generated by a Bernoulli distribution with computable parameter  SYMBOL , then with high probability the two-part complexity of  SYMBOL  with respect to the Bernoulli class does not exceed its algorithmic complexity by more than a constant, as shown by Vovk  CITATION
+MISC That is, the two-part complexity with respect to the Bernoulli class  is  the shortest description, save for an additive constant
+MISC Many Machine Learning tasks are or can be reduced to sequence prediction tasks
+MISC An important example is classification
+MISC The task of classifying a new instance  SYMBOL  after having seen (instance,class) pairs  SYMBOL  can be phrased as to predict the continuation of the sequence  SYMBOL
+MISC Typically the (instance,class) pairs are iid
+MISC Cumulative loss bounds for prediction usually generalize to prediction  conditionalized  to some inputs  CITATION
+OWNX Then we can solve classification problems in the standard form
+OWNX It is not obvious if and how the proofs in this paper can be conditionalized
+OWNX Our main tool for obtaining results is the Kullback-Leibler divergence
+OWNX Lemmata for this quantity are stated in Section
+OWNX Section  shows that the exponential error bound obtained in  CITATION  is sharp in general
+OWNX In Section , we give an upper bound on the instantaneous and the cumulative losses
+OWNX The latter bound is small eg under certain conditions on the distribution of the weights, this is the subject of Section
+OWNX Section  treats the universal setup
+OWNX Finally, in Section  we discuss the results and give conclusions### abstract ###
+MISC Although the Internet AS-level topology has been extensively studied over the past few years, little is known about the details of the AS taxonomy
+MISC An AS "node" can represent a wide variety of organizations, e g , large ISP, or small private business, university, with vastly different network characteristics, external connectivity patterns, network growth tendencies, and other properties that we can hardly neglect while working on veracious Internet representations in simulation environments
+AIMX In this paper, we introduce a radically new approach based on machine learning techniques to map all the ASes in the Internet into a natural AS taxonomy
+OWNX We successfully classify ~95.3\% of ASes with expected accuracy of ~78.1\%
+OWNX We release to the community the AS-level topology dataset augmented with: 1) the AS taxonomy information and 2) the set of AS attributes we used to classify ASes
+OWNX We believe that this dataset will serve as an invaluable addition to further understanding of the structure and evolution of the Internet
+### introduction ###
+MISC The rapid expansion of the Internet in the last two decades has produced a large-scale system of thousands of diverse, independently managed networks that collectively provide global connectivity across a wide spectrum of geopolitical environments
+MISC From 1997 to 2005 the number of globally routable AS identifiers has increased from less than 2,000 to more than 20,000, exerting significant pressure on interdomain routing as well as other functional and structural parts of the Internet
+MISC This impressive growth has resulted in a heterogenous and highly complex system that challenges accurate and realistic modeling of the Internet infrastructure
+MISC In particular, the AS-level topology is an intermix of networks owned and operated by many different organizations, e g , backbone providers, regional providers, access providers, universities and private companies
+MISC Statistical information that faithfully characterizes different AS types is on the critical path toward understanding the structure of the Internet, as well as for modeling its topology and growth
+MISC In topology modeling, knowledge of AS types is mandatory for augmenting synthetically constructed or measured AS topologies with realistic intra-AS and inter-AS router-level topologies
+MISC For example, we expect the network of a dual-homed university to be drastically different from that of a dual-homed small company
+MISC The university will likely contain dozens of internal routers, thousands of hosts, and many other network elements (switches, servers, firewalls)
+MISC On the other hand, the small company will most probably have a single router and a simple network topology
+MISC Since there is such a diversity among different network types, we cannot accurately augment the AS-level topology with appropriate router-level topologies if we cannot characterize the composing ASes
+MISC Moreover, annotating the ASes in the AS topology with their types is a prerequisite for modeling the evolution of the Internet, since different types of ASes exhibit different growth patterns
+MISC For example, Internet Service Providers (ISP) grow by attracting new customers and by engaging in business agreements with other ISPs
+MISC On the other hand, small companies that connect to the Internet through one or few ISPs do not grow significantly over time
+MISC Thus, categorizing different types of ASes in the Internet is necessary to identify network evolution patterns and develop accurate evolution models
+MISC An AS taxonomy is also necessary for mapping IP addresses to different types of users
+MISC For example, in traffic analysis studies its often required to distinguish between packets that come from home and business users
+MISC Given an AS taxonomy, its possible to realize this goal by checking the type of AS that originates the prefix in which an IP address lies
+AIMX In this work, we introduce a radically new approach based on machine learning to construct a representative AS taxonomy
+OWNX We develop an algorithm to classify ASes based on empirically observed differences between AS characteristics
+BASE We use a large set of data from the Internet Routing Registries~(IRR)~ CITATION  and from RouteViews~ CITATION  to identify intrinsic differences between ASes of different types
+OWNX Then, we employ a novel machine learning technique to build a classification algorithm that exploits these differences to classify ASes into six representative classes that reflect ASes with different network properties and infrastructures
+OWNX We derive macroscopic statistics on the different types of ASes in the Internet and validate our results using a sample of~1200 manually identified AS types
+OWNX Our validation demonstrates that our classification algorithm achieves high accuracy:~78 1\% of the examined classifications were correct
+OWNX Finally, we make our results and our classifier publicly available to promote further research and understanding of the Internet's structure and evolution
+OWNX In Section~ we start with a brief discussion of related work
+OWNX Section~ describes the data we used, and in Section~ we specify the set of AS classes we use in our experiments
+OWNX Section~ introduces our classification approach and results
+OWNX We validate them in Section~ and conclude in Section~
+### abstract ###
+AIMX In this paper we derive the equations for Loop Corrected Belief Propagation on a continuous variable Gaussian model
+OWNX Using the exactness of the averages for belief propagation for Gaussian models, a  different way of obtaining the covariances is found,  based on Belief Propagation on cavity graphs
+AIMX We discuss the relation of this  loop correction algorithm to Expectation Propagation  algorithms for the case in which the model is no longer  Gaussian, but slightly perturbed by nonlinear terms
+### introduction ###
+MISC Message passing techniques in graphical models allow for the computation of (approximate)  marginal probabilities in a time interval scaling polynomially in the  model size
+MISC Their discovery has consequently revolutionized several  fields of applications in the past years, of which error correcting codes and vision are probably the most prominent examples
+MISC In many cases, the corresponding graphs are loopy, implying either that the error resulting from the application of loopy belief propagation (BP) is negligible for the particular model, or it  can be tolerated for the particular purpose BP serves
+MISC In other cases  more sophisticated refinements of BP are necessary, taking into account (part of) the loop errors
+MISC Finding the optimal treatment of these ``loop errors''  motivates an active field of research, in which  different solutions applying to different model classes are developed
+MISC For models involving many short loops,  like on regular lattices, CVM type approaches work well  CITATION , or tree EP approaches  CITATION
+MISC The latter may also be  applied to correct for an incidental large loop
+MISC Unifying frameworks like the Region graphs of  CITATION   lead to general strategies for selecting the basic clusters underlying such approaches for general model classes
+MISC A recent analysis has shown that the local update equations of BP may be interpreted as the zero order term of an expansion in ``cavity connected correlations''
+MISC These quantities are parameterizations of the ``cavity distributions'',  i e , the  distribution over neighbor variables of a central variable which has been removed from the graph
+MISC The Bethe approximation and BP are recovered when this  cavity distribution is assumed to factorize, whereas the first order correction to the local update equations is obtained when one takes into account the pair cumulants  CITATION
+MISC Estimation of these pair cumulants is possible with extra runs of BP, allowing for new polynomial time algorithms, reducing errors to order  SYMBOL   when applying algorithms of which running time scales with an extra factor  of  SYMBOL   CITATION
+MISC Although this scaling seems heavy, the large benefit of the approach is that it does not require selection of basic clusters or underlying  tree-structures, since it takes into account the effect of all loops that contribute to nontrivial correlations in the cavity distribution at once
+MISC The above ``loop correction''  strategy is applicable in the class of models where a perturbative expansion around the Bethe approximation makes sense, i e , in models with large loops and relatively weak interactions
+MISC The principal requirement  is that the magnitude of pair variable cumulants of cavity distributions is an order smaller than the  single variable cumulants, and third order cumulants are even smaller, etc
+MISC However, heuristics based on the strategy allow for other good algorithms  performing well outside these parameter regimes  CITATION
+MISC So far the approach has been developed for discrete variable models on a more abstract  CITATION  versus practical level  CITATION
+AIMX In this paper we apply the idea to graphical models for continuous variables
+OWNX We derive the loop corrected belief propagation equations  for simple tractable Gaussian models,  yielding a message passing scheme that, besides the correct average marginals, also yields the correct variances
+AIMX Besides that we discuss some approaches potentially  applicable to cases in which extra function approximations are necessary,  and the relation with expectation propagation
+OWNX A by-product of our loop corrected belief propagation equations is an algorithm that calculates exact covariance matrices for Gaussian models like the one discussed in  CITATION , but without explicitly using linear response### abstract ###
+AIMX In this paper we derive the equations for Loop Corrected Belief Propagation on a continuous variable Gaussian model
+BASE Using the exactness of the averages for belief propagation for Gaussian models, a  different way of obtaining the covariances is found,  based on Belief Propagation on cavity graphs
+OWNX We discuss the relation of this  loop correction algorithm to Expectation Propagation  algorithms for the case in which the model is no longer  Gaussian, but slightly perturbed by nonlinear terms
+### introduction ###
+MISC Message passing techniques in graphical models allow for the computation of (approximate)  marginal probabilities in a time interval scaling polynomially in the  model size
+MISC Their discovery has consequently revolutionized several  fields of applications in the past years, of which error correcting codes and vision are probably the most prominent examples
+MISC In many cases, the corresponding graphs are loopy, implying either that the error resulting from the application of loopy belief propagation (BP) is negligible for the particular model, or it  can be tolerated for the particular purpose BP serves
+MISC In other cases  more sophisticated refinements of BP are necessary, taking into account (part of) the loop errors
+MISC Finding the optimal treatment of these ``loop errors''  motivates an active field of research, in which  different solutions applying to different model classes are developed
+MISC For models involving many short loops,  like on regular lattices, CVM type approaches work well  CITATION , or tree EP approaches  CITATION
+MISC The latter may also be  applied to correct for an incidental large loop
+MISC Unifying frameworks like the Region graphs of  CITATION   lead to general strategies for selecting the basic clusters underlying such approaches for general model classes
+MISC A recent analysis has shown that the local update equations of BP may be interpreted as the zero order term of an expansion in ``cavity connected correlations''
+MISC These quantities are parameterizations of the ``cavity distributions'',  i e , the  distribution over neighbor variables of a central variable which has been removed from the graph
+MISC The Bethe approximation and BP are recovered when this  cavity distribution is assumed to factorize, whereas the first order correction to the local update equations is obtained when one takes into account the pair cumulants  CITATION
+MISC Estimation of these pair cumulants is possible with extra runs of BP, allowing for new polynomial time algorithms, reducing errors to order  SYMBOL   when applying algorithms of which running time scales with an extra factor  of  SYMBOL   CITATION
+MISC Although this scaling seems heavy, the large benefit of the approach is that it does not require selection of basic clusters or underlying  tree-structures, since it takes into account the effect of all loops that contribute to nontrivial correlations in the cavity distribution at once
+MISC The above ``loop correction''  strategy is applicable in the class of models where a perturbative expansion around the Bethe approximation makes sense, i e , in models with large loops and relatively weak interactions
+MISC The principal requirement  is that the magnitude of pair variable cumulants of cavity distributions is an order smaller than the  single variable cumulants, and third order cumulants are even smaller, etc
+MISC However, heuristics based on the strategy allow for other good algorithms  performing well outside these parameter regimes  CITATION
+MISC So far the approach has been developed for discrete variable models on a more abstract  CITATION  versus practical level  CITATION
+AIMX In this paper we apply the idea to graphical models for continuous variables
+OWNX We derive the loop corrected belief propagation equations  for simple tractable Gaussian models,  yielding a message passing scheme that, besides the correct average marginals, also yields the correct variances
+OWNX Besides that we discuss some approaches potentially  applicable to cases in which extra function approximations are necessary,  and the relation with expectation propagation
+BASE A by-product of our loop corrected belief propagation equations is an algorithm that calculates exact covariance matrices for Gaussian models like the one discussed in  CITATION , but without explicitly using linear response
+### abstract ###
+MISC Most generalization bounds in learning theory are based on some measure of the complexity of the hypothesis class used, independently of any algorithm
+MISC In contrast, the notion of algorithmic stability can be used to derive tight generalization bounds that are tailored to specific learning algorithms by exploiting their particular properties
+MISC However, as in much of learning theory, existing stability analyses and bounds apply only in the scenario where the samples are independently and identically distributed
+MISC In many machine learning applications, however, this assumption does not hold
+MISC The observations received by the learning algorithm often have some inherent temporal dependence
+AIMX This paper studies the scenario where the observations are drawn from a stationary  SYMBOL -mixing or  SYMBOL -mixing sequence, a widely adopted assumption in the study of non-iid  processes that implies a dependence between observations weakening over time
+OWNX We prove novel and distinct stability-based generalization bounds for stationary  SYMBOL -mixing and  SYMBOL -mixing sequences
+OWNX These bounds strictly generalize the bounds given in the iid case and apply to all stable learning algorithms, thereby extending the use of stability-bounds to non-iid scenarios
+OWNX We also illustrate the application of our  SYMBOL -mixing generalization bounds to general classes of learning algorithms, including Support Vector Regression, Kernel Ridge Regression, and Support Vector Machines, and many other kernel regularization-based and relative entropy-based regularization algorithms
+OWNX These novel bounds can thus be viewed as the first theoretical basis for the use of these algorithms in non-iid scenarios
+### introduction ###
+MISC Most generalization bounds in learning theory are based on some measure of the complexity of the hypothesis class used, such as the VC-dimension, covering numbers, or Rademacher complexity
+MISC These measures characterize a class of hypotheses, independently of any algorithm
+MISC In contrast, the notion of algorithmic stability can be used to derive bounds that are tailored to specific learning algorithms and exploit their particular properties
+MISC A learning algorithm is stable if the hypothesis it outputs varies in a limited way in response to small changes made to the training set
+MISC Algorithmic stability has been used effectively in the past to derive tight generalization bounds  CITATION
+MISC But, as in much of learning theory, existing stability analyses and bounds apply only in the scenario where the samples are independently and identically distributed (iid)
+MISC In many machine learning applications, this assumption, however, does not hold; in fact, the iid assumption is not tested or derived from any data analysis
+MISC The observations received by the learning algorithm often have some inherent temporal dependence
+MISC This is clear in system diagnosis or time series prediction problems
+MISC Clearly, prices of different stocks on the same day, or of the same stock on different days, may be dependent
+MISC But, a less apparent time dependency may affect data sampled in many other tasks as well
+AIMX This paper studies the scenario where the observations are drawn from a stationary  SYMBOL -mixing or  SYMBOL -mixing sequence, a widely adopted assumption in the study of non-iid processes that implies a dependence between observations weakening over time  CITATION
+OWNX We prove novel and distinct stability-based generalization bounds for stationary  SYMBOL -mixing and  SYMBOL -mixing sequences
+OWNX These bounds strictly generalize the bounds given in the iid case and apply to all stable learning algorithms, thereby extending the usefulness of stability-bounds to non-iid scenarios
+BASE Our proofs are based on the independent block technique described by  CITATION  and attributed to  CITATION , which is commonly used in such contextsMISC
+CONT However, our analysis differs from previous uses of this technique in that the blocks of points considered are not of equal size
+BASE For our analysis of stationary  SYMBOL -mixing sequences, we make use of a generalized version of McDiarmid's inequality  CITATION  that holds for  SYMBOL -mixing sequences
+OWNX This leads to stability-based generalization bounds with the standard exponential form
+OWNX Our generalization bounds for stationary  SYMBOL -mixing sequences cover a more general non-iid scenario and use the standard McDiarmid's inequality, however, unlike the  SYMBOL -mixing case, the  SYMBOL -mixing bound presented here is not a purely exponential bound and contains an additive term depending on the mixing coefficient
+OWNX We also illustrate the application of our  SYMBOL -mixing generalization bounds to general classes of learning algorithms, including Support Vector Regression (SVR)  CITATION , Kernel Ridge Regression  CITATION , and Support Vector Machines (SVMs)  CITATION
+MISC Algorithms such as support vector regression (SVR)  CITATION  have been used in the context of time series prediction in which the iid assumption does not hold, some with good experimental results  CITATION
+MISC To our knowledge, the use of these algorithms in non-iid scenarios has not been previously supported by any theoretical analysis
+OWNX The stability bounds we give for SVR, SVMs, and many other kernel regularization-based and relative entropy-based regularization algorithms can thus be viewed as the first theoretical basis for their use in such scenarios
+MISC The following sections are organized as follows
+OWNX In Section~, we introduce the necessary definitions for the non-iid problems that we are considering and discuss the learning scenarios in that context
+OWNX Section~ gives our main generalization bounds for stationary  SYMBOL -mixing sequences based on stability, as well as the illustration of its applications to general kernel regularization-based algorithms, including SVR, KRR, and SVMs, as well as to relative entropy-based regularization algorithms
+OWNX Finally, Section~ presents the first known stability bounds for the more general stationary  SYMBOL -mixing scenario
+### abstract ###
+OWNX This paper studies quantum annealing (QA) for clustering, which can be seen as an extension of simulated annealing (SA)
+AIMX We derive a QA algorithm for clustering and propose an annealing schedule, which is crucial in practice
+OWNX Experiments show the proposed QA algorithm finds better clustering assignments than SA
+OWNX Furthermore, QA is as easy as SA to implement
+### introduction ###
+MISC Clustering is one of the most popular methods in data mining
+MISC Typically, clustering problems are formulated as optimization problems, which are solved by algorithms, for example the EM algorithm or convex relaxation
+MISC However, clustering is typically NP-hard
+MISC The simulated annealing (SA)  CITATION  is a promising candidate
+MISC CITATION  proved SA was able to find the global optimum with a slow cooling schedule of temperature  SYMBOL
+MISC Although their schedule is in practice too slow for clustering of a large amount of data, it is well known that SA still finds a reasonably good solution even with a faster schedule than what CITATION proposed
+MISC In statistical mechanics, quantum annealing (QA) has been proposed as a novel alternative to SA  CITATION
+MISC QA adds another dimension,  SYMBOL , to SA for annealing, see Fig
+MISC Thus, it can be seen as an extension of SA
+MISC QA has succeeded in specific problems, e g the Ising model in statistical mechanics, and it is still unclear that QA works better than SA in general
+OWNX We do not actually think QA intuitively helps clustering, but we apply QA to clustering just as procedure to derive an algorithm
+MISC A derived QA algorithm depends on the definition of quantum effect  SYMBOL
+AIMX We propose quantum effect  SYMBOL , which leads to a search strategy fit to clustering
+AIMX Our contribution is, 1) to propose a QA-based optimization algorithm for clustering, in particular quantum effect  SYMBOL  for clustering  and a good annealing schedule, which is crucial for applications, 2) and to experimentally show the proposed algorithm optimizes clustering assignments better than SA
+OWNX We also show the proposed algorithm is as easy as SA to implement
+OWNX The algorithm we propose is a Markov chain Monte Carlo (MCMC) sampler, which we call QA-ST sampler
+MISC As we explain later, a naive QA sampler is intractable even with MCMC
+OWNX Thus, we approximate QA by the Suzuki-Trotter (ST) expansion  CITATION  to derive a tractable sampler, which is the QA-ST sampler
+OWNX QA-ST looks like parallel  SYMBOL  SAs with interaction  SYMBOL  (see Fig )
+OWNX At the beginning of the annealing process, QA-ST is almost the same as  SYMBOL  SAs
+OWNX Hence, QA-ST finds  SYMBOL  (local) optima independently
+OWNX As the annealing process continues, interaction  SYMBOL  in Fig becomes stronger to move  SYMBOL  states closer
+OWNX QA-ST at the end picks up the state with the lowest energy in  SYMBOL  states as the final solution
+OWNX QA-ST with the proposed quantum effect  SYMBOL  works well for clustering
+MISC Fig is an example where data points are grouped into four clusters
+MISC SYMBOL and  SYMBOL are locally optimal and  SYMBOL  is globally optimal
+MISC Suppose  SYMBOL  is equal to two and  SYMBOL  and  SYMBOL  in Fig correspond to  SYMBOL  and  SYMBOL  in Fig
+MISC Although  SYMBOL  and  SYMBOL  are local optima, the interaction  SYMBOL  in Fig allows  SYMBOL  and  SYMBOL  to search for a better clustering assignment between  SYMBOL  and  SYMBOL
+MISC Quantum effect  SYMBOL  defines the distance metric of clustering assignments
+MISC In this case, the proposed  SYMBOL  locates  SYMBOL  between  SYMBOL  and  SYMBOL
+MISC Thus, the interaction  SYMBOL  gives good chance to go to  SYMBOL  because  SYMBOL  makes  SYMBOL  and  SYMBOL  closer (see Fig )
+OWNX The proposed algorithm actually finds  SYMBOL  from  SYMBOL  and  SYMBOL
+MISC Fig is just an example
+MISC However, a similar situation often occurs in clustering
+MISC Clustering algorithms in most cases give ``almost'' globally optimal solutions like  SYMBOL  and  SYMBOL , where the majority of data points are well-clustered, but some of them are not
+MISC Thus, a better clustering assignment can be constructed by picking up well-clustered data points from many sub-optimal clustering assignments
+OWNX Note an assignment constructed in such a way is located between the sub-optimal ones by the proposed quantum effect  SYMBOL  so that QA-ST can find a better assignment between sub-optimal ones
+### abstract ###
+MISC In the constraint satisfaction problem ( SYMBOL ), the aim is to find an assignment of values to a set of variables subject to specified constraints
+MISC In the minimum cost homomorphism problem ( SYMBOL ), one is additionally given weights  SYMBOL  for every variable  SYMBOL  and value  SYMBOL , and the aim is to find an assignment  SYMBOL  to the variables that minimizes  SYMBOL
+MISC Let  SYMBOL  denote the  SYMBOL  problem parameterized by the set of predicates allowed for constraints
+MISC SYMBOL  is related to many well-studied combinatorial optimization problems, and concrete applications can be found in, for instance, defence logistics and machine learning
+AIMX We show that  SYMBOL  can be studied by using algebraic methods similar to those used for CSPs
+OWNX With the aid of algebraic techniques, we classify the computational complexity of  SYMBOL  for all choices of  SYMBOL
+OWNX Our result settles a general dichotomy conjecture previously resolved only for certain classes of directed graphs CITATION
+### introduction ###
+MISC Constraint satisfaction problems ( SYMBOL ) are a natural way of formalizing a large number of computational problems arising in combinatorial optimization, artificial intelligence, and database theory
+MISC This problem has the following two equivalent formulations: (1) to find an assignment of values to a given set of variables, subject to constraints on the values that can be assigned simultaneously to specified subsets of variables, and (2) to find a homomorphism between two finite relational structures  SYMBOL  and  SYMBOL
+MISC Applications of  SYMBOL s arise in the propositional logic, database and graph theory, scheduling and many other areas
+MISC During the past 30 years,  SYMBOL  and its subproblems has been intensively studied by computer scientists and mathematicians
+MISC Considerable attention has been given to the case where the constraints are restricted to a given finite set of relations  SYMBOL , called a constraint language  CITATION
+MISC For example, when  SYMBOL  is a constraint language over the boolean set  SYMBOL  with four ternary predicates  SYMBOL ,  SYMBOL ,  SYMBOL ,  SYMBOL  we obtain 3-SAT
+MISC This direction of research has been mainly concerned with the computational complexity of  SYMBOL  as a function of  SYMBOL
+MISC It has been shown that the complexity of  SYMBOL  is highly connected with relational clones of universal algebra  CITATION
+MISC For every constraint language  SYMBOL , it has been conjectured that  SYMBOL  is either in P or NP-complete  CITATION
+MISC In the minimum cost homomorphism problem ( SYMBOL ), we are given variables subject to constraints and, additionally, costs on variable/value pairs
+MISC Now, the task is not just to find any satisfying assignment to the variables, but one that minimizes the total cost
+MISC SYMBOL  was introduced in  CITATION  where it was motivated by a real-world problem in defence logistics
+MISC The question for which directed graphs  SYMBOL  the problem  SYMBOL  is polynomial-time solvable was considered in  CITATION
+AIMX In this paper, we approach the problem in its most general form by algebraic methods and give a complete algebraic characterization of tractable constraint languages
+OWNX From this characterization, we obtain a dichotomy for  SYMBOL , i e , if  SYMBOL  is not polynomial-time solvable, then it is NP-hard
+OWNX Of course, this dichotomy implies the dichotomy for directed graphs
+OWNX In Section 2, we present some preliminaries together with results connecting the complexity of  SYMBOL  with conservative algebras
+OWNX The main dichotomy theorem is stated in Section 3 and its proof is divided into several parts which can be found in Sections 4-8
+OWNX The NP-hardness results are collected in Section 4 followed by the building blocks for the tractability result: existence of majority polymorphisms (Section 5) and connections with optimization in perfect graphs (Section 6)
+OWNX Section 7 introduces the concept of  arithmetical deadlocks  which lay the foundation for the final proof in Section 8
+OWNX In Section 9 we reformulate our main result in terms of relational clones
+OWNX Finally, in Section 10 we explain the relation of our results to previous research and present directions for future research
+### abstract ###
+MISC Regularized risk minimization with the binary hinge loss and its variants lies at the heart of many machine learning problems
+MISC Bundle methods for regularized risk minimization (BMRM) and the closely related SVMStruct are considered the best general purpose solvers to tackle this problem
+MISC It was recently shown that BMRM requires  SYMBOL  iterations to converge to an  SYMBOL  accurate solution
+OWNX In the first part of the paper we use the Hadamard matrix to construct a regularized risk minimization problem and show that these rates cannot be improved
+AIMX We then show how one can exploit the structure of the objective function to devise an algorithm for the binary hinge loss which converges to an  SYMBOL  accurate solution in  SYMBOL  iterations
+### introduction ###
+MISC Let  SYMBOL  denote samples and  SYMBOL  be the corresponding labels
+MISC Given a training set of  SYMBOL  sample label pairs  SYMBOL , drawn iid from a joint probability distribution on  SYMBOL , many machine learning algorithms solve the following regularized risk minimization problem:     
+MISC Here  SYMBOL  denotes the loss on instance  SYMBOL  using the current model  SYMBOL  and  SYMBOL , the empirical risk, is the average loss on the training set
+MISC The regularizer  SYMBOL  acts as a penalty on the complexity of the classifier and prevents overfitting
+MISC Usually the loss is convex in  SYMBOL  but can be nonsmooth while the regularizer is usually a smooth strongly convex function
+MISC Binary Support Vector Machines (SVMs) are a prototypical example of such regularized risk minimization problems where  SYMBOL  and the loss considered is the binary hinge loss:    
+MISC Recently, a number of solvers have been proposed for the regularized risk minimization problem
+MISC The first and perhaps the best known solver is SVMStruct  CITATION , which was shown to converge in  SYMBOL  iterations to an  SYMBOL  accurate solution
+MISC The convergence analysis of SVMStruct was improved to  SYMBOL  iterations by  CITATION
+MISC In fact,  CITATION  showed that their convergence analysis holds for a more general solver than SVMStruct namely BMRM (Bundle method for regularized risk minimization)
+MISC At every iteration BMRM replaces  SYMBOL  by a piecewise linear lower bound  SYMBOL  and optimizes    to obtain the next iterate  SYMBOL
+MISC Here  SYMBOL  denotes an arbitrary subgradient of  SYMBOL  at  SYMBOL  (see Section ) and  SYMBOL
+MISC The piecewise linear lower bound is successively tightened until the gap     falls below a predefined tolerance  SYMBOL
+MISC Even though BMRM solves an expensive optimization problem at every iteration, the convergence analysis only uses a simple one-dimensional line search to bound the decrease in  SYMBOL
+MISC Furthermore, the empirical convergence behavior of BMRM is much better than the theoretically predicted rates on a number of real life problems
+MISC It was therefore conjectured that the rates of convergence of BMRM could be improved
+AIMX In this paper we answer this question in the negative by explicitly constructing a regularized risk minimization problem for which BMRM takes at least  SYMBOL  iterations
+OWNX One possible way to circumvent the  SYMBOL  lower bound is to solve the problem in the dual
+BASE Using a very old result of Nesterov  CITATION  we obtain an algorithm for SVMs which only requires  SYMBOL  iterations to converge to an  SYMBOL  accurate solution; each iteration of the algorithm requires  SYMBOL  work
+OWNX Although we primarily focus on the regularized risk minimization with the binary hinge loss, our algorithm can also be used whenever the empirical risk is piecewise linear and contains a small number of pieces
+OWNX Examples of this include multiclass, multi-label, and ordinal regression hinge loss and other related losses### abstract ###
+MISC Regularized risk minimization with the binary hinge loss and its variants lies at the heart of many machine learning problems
+MISC Bundle methods for regularized risk minimization (BMRM) and the closely related SVMStruct are considered the best general purpose solvers to tackle this problem
+MISC It was recently shown that BMRM requires  SYMBOL  iterations to converge to an  SYMBOL  accurate solution
+AIMX In the first part of the paper we use the Hadamard matrix to construct a regularized risk minimization problem and show that these rates cannot be improved
+AIMX We then show how one can exploit the structure of the objective function to devise an algorithm for the binary hinge loss which converges to an  SYMBOL  accurate solution in  SYMBOL  iterations
+### introduction ###
+MISC Let  SYMBOL  denote samples and  SYMBOL  be the corresponding labels
+MISC Given a training set of  SYMBOL  sample label pairs  SYMBOL , drawn iid from a joint probability distribution on  SYMBOL , many machine learning algorithms solve the following regularized risk minimization problem:     
+MISC Here  SYMBOL  denotes the loss on instance  SYMBOL  using the current model  SYMBOL  and  SYMBOL , the empirical risk, is the average loss on the training set
+MISC The regularizer  SYMBOL  acts as a penalty on the complexity of the classifier and prevents overfitting
+MISC Usually the loss is convex in  SYMBOL  but can be nonsmooth while the regularizer is usually a smooth strongly convex function
+MISC Binary Support Vector Machines (SVMs) are a prototypical example of such regularized risk minimization problems where  SYMBOL  and the loss considered is the binary hinge loss:    
+MISC Recently, a number of solvers have been proposed for the regularized risk minimization problem
+MISC The first and perhaps the best known solver is SVMStruct  CITATION , which was shown to converge in  SYMBOL  iterations to an  SYMBOL  accurate solution
+MISC The convergence analysis of SVMStruct was improved to  SYMBOL  iterations by  CITATION
+MISC In fact,  CITATION  showed that their convergence analysis holds for a more general solver than SVMStruct namely BMRM (Bundle method for regularized risk minimization)
+MISC At every iteration BMRM replaces  SYMBOL  by a piecewise linear lower bound  SYMBOL  and optimizes    to obtain the next iterate  SYMBOL
+MISC Here  SYMBOL  denotes an arbitrary subgradient of  SYMBOL  at  SYMBOL  (see Section ) and  SYMBOL
+MISC The piecewise linear lower bound is successively tightened until the gap     falls below a predefined tolerance  SYMBOL
+MISC Even though BMRM solves an expensive optimization problem at every iteration, the convergence analysis only uses a simple one-dimensional line search to bound the decrease in  SYMBOL
+MISC Furthermore, the empirical convergence behavior of BMRM is much better than the theoretically predicted rates on a number of real life problems
+MISC It was therefore conjectured that the rates of convergence of BMRM could be improved
+AIMX In this paper we answer this question in the negative by explicitly constructing a regularized risk minimization problem for which BMRM takes at least  SYMBOL  iterations
+MISC One possible way to circumvent the  SYMBOL  lower bound is to solve the problem in the dual
+OWNX Using a very old result of Nesterov  CITATION  we obtain an algorithm for SVMs which only requires  SYMBOL  iterations to converge to an  SYMBOL  accurate solution; each iteration of the algorithm requires  SYMBOL  work
+OWNX Although we primarily focus on the regularized risk minimization with the binary hinge loss, our algorithm can also be used whenever the empirical risk is piecewise linear and contains a small number of pieces
+MISC Examples of this include multiclass, multi-label, and ordinal regression hinge loss and other related losses### abstract ###
+AIMX this study was designed to assess sex-related differences in the selection of an appropriate strategy when facing novelty
+OWNX a simple visuo-spatial task was used to investigate exploratory behavior as a specific response to novelty
+OWNX the exploration task was followed by a visual discrimination task  and the responses were analyzed using signal detection theory
+OWNX during exploration women selected a local searching strategy in which the metric distance between what is already known and what is unknown was reduced  whereas men adopted a global strategy based on an approximately uniform distribution of choices
+OWNX women's exploratory behavior gives rise to a notion of a secure base warranting a sense of safety while men's behavior does not appear to be influenced by risk
+OWNX this sex-related difference was interpreted as a difference in beliefs concerning the likelihood of uncertain events influencing risk evaluation
+### introduction ###
+MISC males and females seem to differ in spatial abilities and styles  CITATION
+MISC generally  studies involving navigational problems showed that female cognitive style relies more on detailed information  while male style relies more on global information  CITATION
+MISC evolutionary mechanisms could potentially account for sex differences in spatial behavior
+MISC for example  these behavioral differences may be due to mating patterns that induced a selection of large-range navigation in males  CITATION
+MISC mating patterns or mating strategies are linked to the dynamics of reproduction and sexual selection  CITATION   and sexual selection is restricted to characteristics that influence mate choice and competition for mates
+MISC typically  males have to compete through extensive ranging for access to mates while females have to choose mating partners according to reproductive success  CITATION
+MISC another proposition  but exclusively directed at humans  suggested that the division of labor game hunting and plant gathering would have put greater selection pressure on females' spatial memory because females sustained gathering duties  CITATION
+MISC however  as argued by ecuyer-dab and robert  CITATION    the selection of male characteristics depends on females' choice for mates
+MISC in females  however  spatial cognition would have been primarily shaped by the natural selection of a strong concern for survival both of self and of offspring
+MISC this concern would have compelled them to favor low-risk strategies  like concentrating on proximal spatial cues  when coping with space-related problems
+MISC such focusing would have enabled secure navigation based on detailed landmark encoding  as well as  in certain species  regular feeding based on remembering the exact locations of potential resources  p  NUMBER 
+MISC thus  the hypothesis of labor division would be a by-product of sexual selection and not the cause of sex differences in spatial behavior
+MISC taken together  the literature seems to indicate that the key to understanding the evolution of behavioral sex differences relies on the relative costs and benefits of producing offspring  CITATION
+MISC in that context spatial skills play a crucial role since they increase reproductive success and the accessibility to food resource but  at the same time  multiply the risks of getting lost  being killed or consumed by other animals predation
+MISC hence  the survival of mobile species depends on their ability to balance costs and benefits induced by locomotion and this balancing should differ according to sex
+CONT experimental investigations of sex differences in spatial abilities yield apparently disparate results  CITATION
+MISC this might be partly due to the complexity of contemporary experimental designs  but also to a lack of investigations concerning decision-making processes involved in the selection of strategies
+AIMX the current study investigates sex differences in basic behaviors like exploration  detection and discrimination involving the selection of strategies when coping with uncertainty
+AIMX following the above quotation from ecuyer-dab and robert's  the hypothesis is that women  compared to men  should favor low-risk strategies when coping with space-related problems
+OWNX to test this  i used a simple spontaneous two-dimensional exploratory task
+MISC this choice relies on the fact that exploration is a natural behavior and that it is fundamental in acquiring spatial knowledge
+MISC it seems to be based on driving factors such as curiosity  comfort or mastery over one's environment
+MISC moreover  it is commonly defined as serving to reduce uncertainty and thus allow coping with fear  CITATION
+MISC exploration is mainly characterized by a succession of progressions and stops  CITATION   and the selection of exploration could rely on its capacity to act as a regulator of uncertainty
+MISC indeed  progressions are based on decisions taken during stops  and stops correspond to choice points allowing decisions
+BASE voss  CITATION  refers to the exploration process as the generation and testing of hypotheses concerning the object's meaning and potential use
+OWNX in order to assess risk-taking  a classical visual discrimination task based on the stimuli observed during the exploration task was used
+OWNX the results were analyzed with signal detection theory
+### abstract ###
+AIMX this study was designed to assess sex-related differences in the selection of an appropriate strategy when facing novelty
+OWNX a simple visuo-spatial task was used to investigate exploratory behavior as a specific response to novelty
+OWNX the exploration task was followed by a visual discrimination task  and the responses were analyzed using signal detection theory
+OWNX during exploration women selected a local searching strategy in which the metric distance between what is already known and what is unknown was reduced  whereas men adopted a global strategy based on an approximately uniform distribution of choices
+OWNX women's exploratory behavior gives rise to a notion of a secure base warranting a sense of safety while men's behavior does not appear to be influenced by risk
+OWNX this sex-related difference was interpreted as a difference in beliefs concerning the likelihood of uncertain events influencing risk evaluation
+### introduction ###
+MISC males and females seem to differ in spatial abilities and styles  CITATION
+MISC generally  studies involving navigational problems showed that female cognitive style relies more on detailed information  while male style relies more on global information  CITATION
+MISC evolutionary mechanisms could potentially account for sex differences in spatial behavior
+MISC for example  these behavioral differences may be due to mating patterns that induced a selection of large-range navigation in males  CITATION
+MISC mating patterns or mating strategies are linked to the dynamics of reproduction and sexual selection  CITATION   and sexual selection is restricted to characteristics that influence mate choice and competition for mates
+MISC typically  males have to compete through extensive ranging for access to mates while females have to choose mating partners according to reproductive success  CITATION
+MISC another proposition  but exclusively directed at humans  suggested that the division of labor game hunting and plant gathering would have put greater selection pressure on females' spatial memory because females sustained gathering duties  CITATION
+MISC however  as argued by ecuyer-dab and robert  CITATION    the selection of male characteristics depends on females' choice for mates
+MISC in females  however  spatial cognition would have been primarily shaped by the natural selection of a strong concern for survival both of self and of offspring
+MISC this concern would have compelled them to favor low-risk strategies  like concentrating on proximal spatial cues  when coping with space-related problems
+MISC such focusing would have enabled secure navigation based on detailed landmark encoding  as well as  in certain species  regular feeding based on remembering the exact locations of potential resources  p  NUMBER 
+MISC thus  the hypothesis of labor division would be a by-product of sexual selection and not the cause of sex differences in spatial behavior
+MISC taken together  the literature seems to indicate that the key to understanding the evolution of behavioral sex differences relies on the relative costs and benefits of producing offspring  CITATION
+MISC in that context spatial skills play a crucial role since they increase reproductive success and the accessibility to food resource but  at the same time  multiply the risks of getting lost  being killed or consumed by other animals predation
+MISC hence  the survival of mobile species depends on their ability to balance costs and benefits induced by locomotion and this balancing should differ according to sex
+MISC experimental investigations of sex differences in spatial abilities yield apparently disparate results  CITATION
+MISC this might be partly due to the complexity of contemporary experimental designs  but also to a lack of investigations concerning decision-making processes involved in the selection of strategies
+AIMX the current study investigates sex differences in basic behaviors like exploration  detection and discrimination involving the selection of strategies when coping with uncertainty
+OWNX following the above quotation from ecuyer-dab and robert's  the hypothesis is that women  compared to men  should favor low-risk strategies when coping with space-related problems
+OWNX to test this  i used a simple spontaneous two-dimensional exploratory task
+MISC this choice relies on the fact that exploration is a natural behavior and that it is fundamental in acquiring spatial knowledge
+MISC it seems to be based on driving factors such as curiosity  comfort or mastery over one's environment
+MISC moreover  it is commonly defined as serving to reduce uncertainty and thus allow coping with fear  CITATION
+MISC exploration is mainly characterized by a succession of progressions and stops  CITATION   and the selection of exploration could rely on its capacity to act as a regulator of uncertainty
+MISC indeed  progressions are based on decisions taken during stops  and stops correspond to choice points allowing decisions
+MISC voss  CITATION  refers to the exploration process as the generation and testing of hypotheses concerning the object's meaning and potential use
+OWNX in order to assess risk-taking  a classical visual discrimination task based on the stimuli observed during the exploration task was used
+OWNX the results were analyzed with signal detection theory
+### abstract ###
+MISC similar to research on risky choice, the traditional analysis of intertemporal choice takes the view that an individual behaves so as to maximize the discounted sum of all future utilities
+MISC the well-known allais paradox contradicts the fundamental postulates of maximizing the expected value or utility of a risky option
+AIMX we describe a violation of the law of diminishing marginal utility as well as an intertemporal version of the allais paradox
+### introduction ###
+MISC in the field of intertemporal choice, the discounted-utility du theory proposed by paul samuelson in 1937 was presented not only as a valid normative standard but also as a descriptive theory of actual intertemporal choice behavior  CITATION
+MISC in its general form, the du theory proposes that the value of an option, x; t, is the product of its present utility, ux, and an exponential temporal discounting function, ft, where t is the time at which x is acquired
+MISC the overall value of a mixed option, a = {x, t, x, t, }, denoted va, is simply the sum of these products
+MISC that is, va = sigma  ux ft
+MISC an option a will be preferred to an option b if and only if va  greater than  vb
+MISC however, a large body of empirical evidence demonstrates that people systematically violate this theory
+MISC this includes the common difference effect, the magnitude effect, the gain-loss asymmetry, the delay-speedup asymmetry, and so on  CITATION
+MISC this situation has led researchers to consider extensions and modifications of the du theory to reconcile it with the experimental data
+MISC the most prominent idea to account for these anomalies is the hyperbolic discounting model  CITATION
+MISC this model suggests that the discount rate is not dynamically consistent but that the rate is higher between the present and near future and lower between the near and far distant future
+MISC numerous theories have been developed by transforming the discount function to other forms, from one-parameter hyperbolic discounting  CITATION  to generalized hyperbolic discounting  CITATION , to proportional discounting  CITATION , and to quasi-hyperbolic discounting  CITATION
+MISC however, these models focus on intertemporal choice between pairs of single-dated outcomes represented as pure gains or losses
+MISC when these models are applied to intertemporal choice between pairs of multiple-dated outcomes in mixed contexts, there is general agreement on the additive assumption and the independence assumption
+MISC with an apt transformation of the discounting rate, the additive assumption means that preferences for outcome sequences are based on a simple aggregation of their individual components within intertemporal choice  CITATION
+MISC the independence assumption means that the value or utility of an outcome in one period is independent of outcomes in other periods  CITATION
+MISC because risk and delay might be psychologically equivalent, or at least analogous, and because similar psychological processes might underlie risk and intertemporal choice  CITATION , theoretical development in intertemporal choice has progressed steadily along a similar route as that of risky choice  CITATION
+MISC both lines of research have spawned a large number of variant models
+MISC although the functional forms differ, most theories assume a maximization principle; that is, people calculate the mathematical expectation of each outcome and add them together before choosing the option that maximizes overall value or utility
+MISC a minor difference is that the existing models of intertemporal choice are relatively underdeveloped and are less flexible in dealing with empirical challenges
+MISC for example, research on risky decision making does not treat risky choice as limited to pure gains or pure losses but has been extended to include mixed outcomes involving both gains and losses
+MISC examples include the sign-dependent utility model  CITATION , the rank- and sign-dependent utility model  CITATION , and the transfer of attention exchange model  CITATION
+MISC the well-known allais paradox  CITATION  contradicts the fundamental postulates of maximizing the expected utility of a risky option
+MISC the paradox presents a violation of the cancellation axiom, which asserts that, if two options have a common consequence under a particular event, the preference order of the options should be independent of the value of that consequence  CITATION
+MISC since then, many new descriptive theories of risky choice have abandoned the maximization assumption  CITATION
+MISC most models of intertemporal choice have not yet abandoned the additive assumption and the independence assumption
+MISC these two assumptions would lead to the cancellation axiom, which indicates that a preference between two sequences with elements in common does not depend on the nature of the common elements
+OWNX table 1 illustrates an example of the multiple-dated outcomes problem, which would be used to test the cancellation axiom
+OWNX in problem i, the additive models predict that adding a common element x at time 2 to both option a and option b would not change the preference orderings
+OWNX the violation of cancellation would be observed if the preference orderings were different between problem i and problem i
+OWNX however, if allais's proposition applies to intertemporal choice, we will eventually encounter an intertemporal version of the allais paradox
+OWNX we first illustrate our point with a paradox that is an intertemporal-type violation of the cancellation axiom### abstract ###
+MISC similar to research on risky choice, the traditional analysis of intertemporal choice takes the view that an individual behaves so as to maximize the discounted sum of all future utilities
+MISC the well-known allais paradox contradicts the fundamental postulates of maximizing the expected value or utility of a risky option
+AIMX we describe a violation of the law of diminishing marginal utility as well as an intertemporal version of the allais paradox
+### introduction ###
+MISC in the field of intertemporal choice, the discounted-utility du theory proposed by paul samuelson in 1937 was presented not only as a valid normative standard but also as a descriptive theory of actual intertemporal choice behavior  CITATION
+MISC in its general form, the du theory proposes that the value of an option, x; t, is the product of its present utility, ux, and an exponential temporal discounting function, ft, where t is the time at which x is acquired
+MISC the overall value of a mixed option, a = {x, t, x, t, }, denoted va, is simply the sum of these products
+MISC that is, va = sigma  ux ft
+MISC an option a will be preferred to an option b if and only if va  greater than  vb
+CONT however, a large body of empirical evidence demonstrates that people systematically violate this theory
+MISC this includes the common difference effect, the magnitude effect, the gain-loss asymmetry, the delay-speedup asymmetry, and so on  CITATION
+MISC this situation has led researchers to consider extensions and modifications of the du theory to reconcile it with the experimental data
+MISC the most prominent idea to account for these anomalies is the hyperbolic discounting model  CITATION
+MISC this model suggests that the discount rate is not dynamically consistent but that the rate is higher between the present and near future and lower between the near and far distant future
+MISC numerous theories have been developed by transforming the discount function to other forms, from one-parameter hyperbolic discounting  CITATION  to generalized hyperbolic discounting  CITATION , to proportional discounting  CITATION , and to quasi-hyperbolic discounting  CITATION
+MISC however, these models focus on intertemporal choice between pairs of single-dated outcomes represented as pure gains or losses
+MISC when these models are applied to intertemporal choice between pairs of multiple-dated outcomes in mixed contexts, there is general agreement on the additive assumption and the independence assumption
+MISC with an apt transformation of the discounting rate, the additive assumption means that preferences for outcome sequences are based on a simple aggregation of their individual components within intertemporal choice  CITATION
+MISC the independence assumption means that the value or utility of an outcome in one period is independent of outcomes in other periods  CITATION
+MISC because risk and delay might be psychologically equivalent, or at least analogous, and because similar psychological processes might underlie risk and intertemporal choice  CITATION , theoretical development in intertemporal choice has progressed steadily along a similar route as that of risky choice  CITATION
+MISC both lines of research have spawned a large number of variant models
+MISC although the functional forms differ, most theories assume a maximization principle; that is, people calculate the mathematical expectation of each outcome and add them together before choosing the option that maximizes overall value or utility
+MISC a minor difference is that the existing models of intertemporal choice are relatively underdeveloped and are less flexible in dealing with empirical challenges
+MISC for example, research on risky decision making does not treat risky choice as limited to pure gains or pure losses but has been extended to include mixed outcomes involving both gains and losses
+MISC examples include the sign-dependent utility model  CITATION , the rank- and sign-dependent utility model  CITATION , and the transfer of attention exchange model  CITATION
+MISC the well-known allais paradox  CITATION  contradicts the fundamental postulates of maximizing the expected utility of a risky option
+MISC the paradox presents a violation of the cancellation axiom, which asserts that, if two options have a common consequence under a particular event, the preference order of the options should be independent of the value of that consequence  CITATION
+MISC since then, many new descriptive theories of risky choice have abandoned the maximization assumption  CITATION
+CONT most models of intertemporal choice have not yet abandoned the additive assumption and the independence assumption
+MISC these two assumptions would lead to the cancellation axiom, which indicates that a preference between two sequences with elements in common does not depend on the nature of the common elements
+MISC table 1 illustrates an example of the multiple-dated outcomes problem, which would be used to test the cancellation axiom
+MISC in problem i, the additive models predict that adding a common element x at time 2 to both option a and option b would not change the preference orderings
+MISC the violation of cancellation would be observed if the preference orderings were different between problem i and problem i
+MISC however, if allais's proposition applies to intertemporal choice, we will eventually encounter an intertemporal version of the allais paradox
+OWNX we first illustrate our point with a paradox that is an intertemporal-type violation of the cancellation axiom
+### abstract ###
+AIMX  we test in the context of a dictator game the proposition that individuals may experience a self-control conflict between the temptation to act selfishly and the better judgment to act pro-socially
+OWNX  we manipulated the likelihood that individuals would identify self-control conflict, and we measured their trait ability to implement self-control strategies
+OWNX  our analysis reveals a positive and significant correlation between trait self-control and pro-social behavior in the treatment where we expected a relatively high likelihood of conflict identification-but not in the treatment where we expected a low likelihood
+MISC  the magnitude of the effect is of economic significance
+OWNX  we conclude that subtle cues might prove sufficient to alter individuals' perception of allocation opportunities, thereby prompting individuals to draw on their own cognitive resources to act pro-socially
+### introduction ###
+MISC  lured by temptation, individuals may find themselves acting against their better judgment
+MISC  self-control failure, famously termed akrasia in plato's protagoras  CITATION , persists throughout domains of daily life and represents a central issue of both philosophy and modern-day social sciences
+MISC  for example, the dieter faced with the opportunity to indulge in a delicious creamy cake may perceive a conflict between indulging and maintaining a good figure
+MISC  the student may feel conflicted between the desire to go to the cinema and her better judgment to stay home and study
+MISC  and, similarly, the fashionista might feel conflicted between the temptation to purchase new boots and her better judgment to maintain a responsible budget
+MISC  perhaps less intuitively, but no less importantly, the question of pro-social versus selfish behavior may be understood in similar terms
+MISC  this conceptualization may help reconcile conflicting notions in economics of selfish and pro-social motivations
+MISC  that individuals should care much about their own self-interest seems almost tautological and requires little further exposition, but that individuals also should care about the interest of others-at the expense of that of their own-has attracted considerable attention  CITATION
+MISC  for example, many individuals voluntarily contribute to charity or to public goods e g , recycling, and they pay their taxes despite low likelihood of punishment for failing to do so
+MISC  nonetheless, one could imagine that even individuals of generally pro-social inclination on occasion may feel tempted to act selfishly and hence underreport income to the authorities
+MISC  that is, pro-social preferences potentially fly in the face of basic urges for personal gain-or greed-and the individual may thus experience a self-control conflict between better judgment to act pro-socially and the temptation to act selfishly
+MISC  self-control-our capacity to overrule temptation-is no less complex than it is important
+MISC  a multitude of conceptualizations exist, many of which are complementary
+MISC  typically, and in line with classic ideas of the conflict between reason and passion, authors view self-control as a "cold" executive function that guides behavior in the face of "hot" impulses to act against better judgment  CITATION
+MISC  willpower, then, represents the combined resources that the executive function-or the planner, in the parlance of thaler and shefrin  CITATION -brings to bear in a deliberate struggle against temptation  CITATION
+MISC  such resources may include cognitive strategies to divert attention away from temptation  CITATION , strategies of pre-commitment  CITATION , or possibly the sheer strength of mind to hold back from the song of the sirens
+OWNX  our conceptualization of self-control mirrors these
+MISC  only recently has the psychological literature started to explore how the question of pro-social versus selfish behavior relates to that of self-control
+MISC  loewenstein  CITATION  suggests that selfish behavior may be motivated by visceral urges or drive-states, resembling cravings for relief from hunger, pain, and sexual deprivation
+MISC  o'donoghue and loewenstein  CITATION  argue that such selfish urges may conflict with the "colder", more abstract preferences for altruism, as visceral urges for sweets may conflict with more abstract preferences for a fine figure or good health
+CONT  at present, there is but indirect evidence for this idea
+MISC  for example, pronin et al CITATION  show that decisions about others resemble decisions about "future selves", both classes of which contrast to decisions about less abstract "present selves"
+MISC  albrecht et al CITATION  report consistent results; individuals who choose between immediate and delayed rewards for themselves exhibit less patience and more affective involvement activation in the dopaminergic reward system than do individuals who make such choices for others-or for themselves in the future
+MISC  moreover, curry et al CITATION  find in a standard public goods game that individuals' discount rates are negatively associated with their contributions to the public good
+MISC  that is, more "impatient" individuals contributed less to the public good than did "patient" ones
+MISC  arriving at similar results, fehr and leibbrandt  CITATION  report that patient vs impatient fishermen, whose time preferences were elicited in the lab, exhibited more cooperative behavior in a common resource problem and were in the field less likely to over-exploit the common pool resource
+MISC  furthermore, burks et al CITATION  find that "short-term" patience-the  beta   in the  beta  -&#x3b4;  model-is positively associated with cooperative behavior in a sequential prisoner's dilemma
+MISC  however, duffy and smith  CITATION  report no effect of cognitive load-a manipulation intended to deplete cognitive resources and thereby impair self-control-on outcomes across treatments in a repeated multi-player prisoner's dilemma
+MISC  an emerging literature on the "default" response in games of trust and reciprocity lends further credence to the notion that altruistic responses require self-control
+MISC  achtziger et al CITATION  subjected players in an ultimatum game to cognitive resource depletion, and show that depleted proposers made lower offers-they became less altruistic
+MISC  moreover, depleted responders were more likely to reject offers that were unfair to themselves-they exhibited "altruistic punishment"
+MISC  halali et al CITATION  report the same for responders, but with a different depletion task
+MISC  crockett et al CITATION  subjected responders to acute tryptophan depletion-a procedure that temporarily reduces serotonin levels in the brain and thereby impairs self-control  CITATION ; reduced serotonin levels raised rejection rates and this reduction is positively correlated with impulsive choice in a delay-discounting task  CITATION
+MISC  using a trust game, knoch et al CITATION  subjected trustees' right lateral prefrontal cortex to transcranial magnetic stimulation, which reduces functioning in the targeted brain region
+MISC  trustees, though cognizant that returning a share of the investments was both strategic and norm-compliant, were unable to do so under impaired executive functioning; self-control seems necessary to act on the better judgment to resist the temptation to keep the received investment entirely for oneself
+BASE  closest to our domain of inquiry, piovesan and wengstrom  CITATION  measured response times of participants in a repeated dictator game, lasting 24 periods
+MISC  they find both across and within participants that lower response times are associated with more selfish choices
+MISC  one interpretation of their results is that the default behavior is to act selfishly and that pro-social behavior requires the successful resolution of a self-control conflict, which slows the response time
+MISC  such successful resolution of conflict would require cognitive resources, but hauge et al CITATION  report no effect of cognitive load on players in one-shot dictator games
+AIMX  in this paper we attempt a more direct test of the hypothesis that pro-social versus selfish behavior may represent a self-control problem
+OWNX  we employ a standard measure of pure pro-social behavior, the one-shot dictator game, which invokes neither concerns for strategy nor for reciprocity; and a well-grounded psychometric measure of self-control, the rosenbaum self-control schedule  CITATION
+OWNX  further, we explore the conditions under which we expect an association between self-control and pro-social behavior
+OWNX  in so doing, we rely on two conditions necessary for successfully exercising restraint in the face of temptation; myrseth and fishbach  CITATION  propose a two-stage model of self-control, which postulates that an individual in the face of temptation first identifies conflict or not between indulging and pursuing a higher-order goal and, second, that the individual next employs self-control strategies if and only if conflict was identified at the first stage see figure 1
+MISC  critically, self-control strategies are relevant to the decision to indulge only when the individual has identified self-control conflict
+MISC  therefore, one strategy for investigating whether the problem of pro-social versus selfish behavior resembles one of self-control is to test whether the tendency to apply self-control strategies is positively associated with pro-social behavior when individuals have identified self-control conflict, but less so or not at all when individuals have not
+MISC  determinants of conflict identification in the face of temptation have been explored only recently
+MISC  in some contexts, the question is almost trivial and identification of conflict virtually obvious
+MISC  for example, the diabetic dieter probably knows that having even a single, tempting chocolate may incur major costs
+MISC  however, the question of self-control conflict is more ambiguous for the non-diabetic dieter, who faces the same chocolate
+MISC  having this one chocolate alone will not incur major costs, but doing so regularly might
+MISC  similarly, the good citizen may find that a general failure to act generously would represent a major threat to his self-image, but being stingy on just a couple of occasions is a more ambiguous matter
+MISC  myrseth and fishbach  CITATION  use the term epsilon cost temptation to denote tempting opportunities that incur nothing but trivial costs when consumed in small amounts, but potentially serious costs when consumed extensively
+MISC  they argue that individuals identify self-control conflict in the face of epsilon cost temptation if and only if two conditions are met: a the focal consumption opportunity must be viewed in relation to multiple additional opportunities, and b the decision maker must assume that similar choices are made for each opportunity  CITATION
+MISC  that is, considering the question of whether or not to have a delicious creamy cake will evoke self-control conflict in the dieter if the dining opportunity is viewed in relation to future opportunities for dessert consumption, but not if the dining opportunity is viewed in isolation, as a singular episode
+MISC  similarly, the question of whether or not to be generous-to donate to a charitable organization-may elicit self-control conflict if the decision is viewed in relation to future decisions, but not if the decision is viewed in isolation
+MISC  if viewed in relation to future decisions, the question of how much to donate on a single occasion may have bearing on the decision maker's self-image; donating now-and in the future-indicates a generous character, whereas keeping the money for oneself does not
+MISC  however, if viewed in isolation, the question of how much to donate has little bearing on self-image; the present decision of how much to donate is considered only in light of immediate consequences, leaving self-image out of the equation
+MISC  because a consistent self-image represents an important motivator for pro-social behavior  CITATION , we expect that individuals are more likely to identify self-control conflict between selfish and pro-social behavior if the allocation decision is seen in relation to future opportunities than if it is seen in isolation
+MISC  myrseth and fishbach  CITATION  show that subtle framing manipulations are sufficient to influence identification of self-control conflict in the face of epsilon cost temptation
+MISC  they find that presenting a calendar displaying the current month, with a grid separating the dates, raised participants' subsequent consumption of potato chips relative to that of participants whom were presented a calendar without a grid
+MISC  they argue that the gridded calendar activated an isolated versus interrelated frame of the choice opportunity; it made participants more likely to isolate the date in question and thus less likely to see the decision task in relation to similar future opportunities
+MISC  consequently, the grid reduced the likelihood that participants would identify a conflict between the temptation to have chips and the better judgment to maintain a fine figure and good health
+MISC  indeed, participants who viewed the gridded calendar reported experiencing less conflict during their decision to have chips or not than did those who viewed the non-gridded calendar
+MISC  furthermore, participants' trait ability to implement self-control strategies, measured by rosenbaum's  CITATION  psychometric scale, was positively associated with chips consumption for those who viewed the calendar without the grid and who were more likely to identify conflict, but not for others who viewed the calendar with and who were less likely to identify conflict
+MISC  that is, participants who viewed the calendar without the grid, more likely than those who viewed the calendar with, identified self-control conflict and therefore leveraged their self-control strategies to resist the tempting chips
+BASE  to explore our hypothesis that the problem of pro-social versus selfish behavior may represent one of self-control, we have applied the empirical strategy from myrseth and fishbach  CITATION  in the dictator game-a participant is granted an endowment and asked to split it between herself and a recipient  CITATION , and in our case the red cross featured as recipient  CITATION
+OWNX  the game thus pits pro-social motivations against self-interest
+OWNX  if pro-social versus selfish behavior could represent a self-control conflict, we would expect participants' trait self-control, as measured by rosenbaum's  CITATION  scale, to correlate positively with pro-social behavior for participants who have just previously viewed a calendar without a grid, but less so or not at all for participants who have viewed a calendar with
+OWNX  the graph in figure 2 displays donation, as a function of level of self-control, for two different levels of identification likelihood
+OWNX  in the case of low likelihood, the slope is expected to be weakly positive
+OWNX  in the case of the higher likelihood, however, the slope is expected to be strictly greater than that in the case of low likelihood
+OWNX  this means that for a given level of self-control, one might observe substantially different donation behavior depending on whether conflict was identified or not
+### abstract ###
+AIMX we test in the context of a dictator game the proposition that individuals may experience a self-control conflict between the temptation to act selfishly and the better judgment to act pro-socially
+OWNX we manipulated the likelihood that individuals would identify self-control conflict, and we measured their trait ability to implement self-control strategies
+OWNX our analysis reveals a positive and significant correlation between trait self-control and pro-social behavior in the treatment where we expected a relatively high likelihood of conflict identification-but not in the treatment where we expected a low likelihood
+OWNX the magnitude of the effect is of economic significance
+OWNX we conclude that subtle cues might prove sufficient to alter individuals' perception of allocation opportunities, thereby prompting individuals to draw on their own cognitive resources to act pro-socially
+### introduction ###
+MISC lured by temptation, individuals may find themselves acting against their better judgment
+MISC self-control failure, famously termed akrasia in plato's protagoras  CITATION , persists throughout domains of daily life and represents a central issue of both philosophy and modern-day social sciences
+MISC for example, the dieter faced with the opportunity to indulge in a delicious creamy cake may perceive a conflict between indulging and maintaining a good figure
+MISC the student may feel conflicted between the desire to go to the cinema and her better judgment to stay home and study
+MISC and, similarly, the fashionista might feel conflicted between the temptation to purchase new boots and her better judgment to maintain a responsible budget
+MISC perhaps less intuitively, but no less importantly, the question of pro-social versus selfish behavior may be understood in similar terms
+MISC this conceptualization may help reconcile conflicting notions in economics of selfish and pro-social motivations
+MISC that individuals should care much about their own self-interest seems almost tautological and requires little further exposition, but that individuals also should care about the interest of others-at the expense of that of their own-has attracted considerable attention  CITATION
+MISC for example, many individuals voluntarily contribute to charity or to public goods e g , recycling, and they pay their taxes despite low likelihood of punishment for failing to do so
+MISC nonetheless, one could imagine that even individuals of generally pro-social inclination on occasion may feel tempted to act selfishly and hence underreport income to the authorities
+MISC that is, pro-social preferences potentially fly in the face of basic urges for personal gain-or greed-and the individual may thus experience a self-control conflict between better judgment to act pro-socially and the temptation to act selfishly
+MISC self-control-our capacity to overrule temptation-is no less complex than it is important
+MISC a multitude of conceptualizations exist, many of which are complementary
+MISC typically, and in line with classic ideas of the conflict between reason and passion, authors view self-control as a "cold" executive function that guides behavior in the face of "hot" impulses to act against better judgment  CITATION
+MISC willpower, then, represents the combined resources that the executive function-or the planner, in the parlance of thaler and shefrin  CITATION -brings to bear in a deliberate struggle against temptation  CITATION
+MISC such resources may include cognitive strategies to divert attention away from temptation  CITATION , strategies of pre-commitment  CITATION , or possibly the sheer strength of mind to hold back from the song of the sirens
+OWNX our conceptualization of self-control mirrors these
+MISC only recently has the psychological literature started to explore how the question of pro-social versus selfish behavior relates to that of self-control
+MISC loewenstein  CITATION  suggests that selfish behavior may be motivated by visceral urges or drive-states, resembling cravings for relief from hunger, pain, and sexual deprivation
+MISC o'donoghue and loewenstein  CITATION  argue that such selfish urges may conflict with the "colder", more abstract preferences for altruism, as visceral urges for sweets may conflict with more abstract preferences for a fine figure or good health
+MISC at present, there is but indirect evidence for this idea
+MISC for example, pronin et al CITATION  show that decisions about others resemble decisions about "future selves", both classes of which contrast to decisions about less abstract "present selves"
+MISC albrecht et al CITATION  report consistent results; individuals who choose between immediate and delayed rewards for themselves exhibit less patience and more affective involvement activation in the dopaminergic reward system than do individuals who make such choices for others-or for themselves in the future
+MISC moreover, curry et al CITATION  find in a standard public goods game that individuals' discount rates are negatively associated with their contributions to the public good
+MISC that is, more "impatient" individuals contributed less to the public good than did "patient" ones
+MISC arriving at similar results, fehr and leibbrandt  CITATION  report that patient vs impatient fishermen, whose time preferences were elicited in the lab, exhibited more cooperative behavior in a common resource problem and were in the field less likely to over-exploit the common pool resource
+MISC furthermore, burks et al CITATION  find that "short-term" patience-the  beta   in the  beta  -&#x3b4;  model-is positively associated with cooperative behavior in a sequential prisoner's dilemma
+MISC however, duffy and smith  CITATION  report no effect of cognitive load-a manipulation intended to deplete cognitive resources and thereby impair self-control-on outcomes across treatments in a repeated multi-player prisoner's dilemma
+MISC an emerging literature on the "default" response in games of trust and reciprocity lends further credence to the notion that altruistic responses require self-control
+MISC achtziger et al CITATION  subjected players in an ultimatum game to cognitive resource depletion, and show that depleted proposers made lower offers-they became less altruistic
+MISC moreover, depleted responders were more likely to reject offers that were unfair to themselves-they exhibited "altruistic punishment"
+MISC halali et al CITATION  report the same for responders, but with a different depletion task
+MISC crockett et al CITATION  subjected responders to acute tryptophan depletion-a procedure that temporarily reduces serotonin levels in the brain and thereby impairs self-control  CITATION ; reduced serotonin levels raised rejection rates and this reduction is positively correlated with impulsive choice in a delay-discounting task  CITATION
+MISC using a trust game, knoch et al CITATION  subjected trustees' right lateral prefrontal cortex to transcranial magnetic stimulation, which reduces functioning in the targeted brain region
+MISC trustees, though cognizant that returning a share of the investments was both strategic and norm-compliant, were unable to do so under impaired executive functioning; self-control seems necessary to act on the better judgment to resist the temptation to keep the received investment entirely for oneself
+MISC closest to our domain of inquiry, piovesan and wengstrom  CITATION  measured response times of participants in a repeated dictator game, lasting 24 periods
+MISC they find both across and within participants that lower response times are associated with more selfish choices
+MISC one interpretation of their results is that the default behavior is to act selfishly and that pro-social behavior requires the successful resolution of a self-control conflict, which slows the response time
+MISC such successful resolution of conflict would require cognitive resources, but hauge et al CITATION  report no effect of cognitive load on players in one-shot dictator games
+AIMX in this paper we attempt a more direct test of the hypothesis that pro-social versus selfish behavior may represent a self-control problem
+OWNX we employ a standard measure of pure pro-social behavior, the one-shot dictator game, which invokes neither concerns for strategy nor for reciprocity; and a well-grounded psychometric measure of self-control, the rosenbaum self-control schedule  CITATION
+OWNX further, we explore the conditions under which we expect an association between self-control and pro-social behavior
+BASE in so doing, we rely on two conditions necessary for successfully exercising restraint in the face of temptation; myrseth and fishbach  CITATION  propose a two-stage model of self-control, which postulates that an individual in the face of temptation first identifies conflict or not between indulging and pursuing a higher-order goal and, second, that the individual next employs self-control strategies if and only if conflict was identified at the first stage see figure 1
+MISC critically, self-control strategies are relevant to the decision to indulge only when the individual has identified self-control conflict
+MISC therefore, one strategy for investigating whether the problem of pro-social versus selfish behavior resembles one of self-control is to test whether the tendency to apply self-control strategies is positively associated with pro-social behavior when individuals have identified self-control conflict, but less so or not at all when individuals have not
+MISC determinants of conflict identification in the face of temptation have been explored only recently
+MISC in some contexts, the question is almost trivial and identification of conflict virtually obvious
+MISC for example, the diabetic dieter probably knows that having even a single, tempting chocolate may incur major costs
+MISC however, the question of self-control conflict is more ambiguous for the non-diabetic dieter, who faces the same chocolate
+MISC having this one chocolate alone will not incur major costs, but doing so regularly might
+MISC similarly, the good citizen may find that a general failure to act generously would represent a major threat to his self-image, but being stingy on just a couple of occasions is a more ambiguous matter
+MISC myrseth and fishbach  CITATION  use the term epsilon cost temptation to denote tempting opportunities that incur nothing but trivial costs when consumed in small amounts, but potentially serious costs when consumed extensively
+MISC they argue that individuals identify self-control conflict in the face of epsilon cost temptation if and only if two conditions are met: a the focal consumption opportunity must be viewed in relation to multiple additional opportunities, and b the decision maker must assume that similar choices are made for each opportunity  CITATION
+MISC that is, considering the question of whether or not to have a delicious creamy cake will evoke self-control conflict in the dieter if the dining opportunity is viewed in relation to future opportunities for dessert consumption, but not if the dining opportunity is viewed in isolation, as a singular episode
+MISC similarly, the question of whether or not to be generous-to donate to a charitable organization-may elicit self-control conflict if the decision is viewed in relation to future decisions, but not if the decision is viewed in isolation
+MISC if viewed in relation to future decisions, the question of how much to donate on a single occasion may have bearing on the decision maker's self-image; donating now-and in the future-indicates a generous character, whereas keeping the money for oneself does not
+MISC however, if viewed in isolation, the question of how much to donate has little bearing on self-image; the present decision of how much to donate is considered only in light of immediate consequences, leaving self-image out of the equation
+OWNX because a consistent self-image represents an important motivator for pro-social behavior  CITATION , we expect that individuals are more likely to identify self-control conflict between selfish and pro-social behavior if the allocation decision is seen in relation to future opportunities than if it is seen in isolation
+MISC myrseth and fishbach  CITATION  show that subtle framing manipulations are sufficient to influence identification of self-control conflict in the face of epsilon cost temptation
+MISC they find that presenting a calendar displaying the current month, with a grid separating the dates, raised participants' subsequent consumption of potato chips relative to that of participants whom were presented a calendar without a grid
+MISC they argue that the gridded calendar activated an isolated versus interrelated frame of the choice opportunity; it made participants more likely to isolate the date in question and thus less likely to see the decision task in relation to similar future opportunities
+MISC consequently, the grid reduced the likelihood that participants would identify a conflict between the temptation to have chips and the better judgment to maintain a fine figure and good health
+MISC indeed, participants who viewed the gridded calendar reported experiencing less conflict during their decision to have chips or not than did those who viewed the non-gridded calendar
+MISC furthermore, participants' trait ability to implement self-control strategies, measured by rosenbaum's  CITATION  psychometric scale, was positively associated with chips consumption for those who viewed the calendar without the grid and who were more likely to identify conflict, but not for others who viewed the calendar with and who were less likely to identify conflict
+MISC that is, participants who viewed the calendar without the grid, more likely than those who viewed the calendar with, identified self-control conflict and therefore leveraged their self-control strategies to resist the tempting chips
+BASE to explore our hypothesis that the problem of pro-social versus selfish behavior may represent one of self-control, we have applied the empirical strategy from myrseth and fishbach  CITATION  in the dictator game-a participant is granted an endowment and asked to split it between herself and a recipient  CITATION , and in our case the red cross featured as recipient  CITATION
+OWNX the game thus pits pro-social motivations against self-interest
+OWNX if pro-social versus selfish behavior could represent a self-control conflict, we would expect participants' trait self-control, as measured by rosenbaum's  CITATION  scale, to correlate positively with pro-social behavior for participants who have just previously viewed a calendar without a grid, but less so or not at all for participants who have viewed a calendar with
+OWNX the graph in figure 2 displays donation, as a function of level of self-control, for two different levels of identification likelihood
+OWNX in the case of low likelihood, the slope is expected to be weakly positive
+OWNX in the case of the higher likelihood, however, the slope is expected to be strictly greater than that in the case of low likelihood
+OWNX this means that for a given level of self-control, one might observe substantially different donation behavior depending on whether conflict was identified or not
+### abstract ###
+MISC in preventative health decisions, such as the decision to undergo an invasive screening test or treatment, people may be deterred from selecting the test because its perceived disutility relative to not testing is greater than the utility associated with prevention of possible disease
+MISC the prospect theory editing operation, by which a decision maker's reference point is determined, can have important effects on the disutility of the test
+AIMX on the basis of the prospect theory value function, this paper develops two approaches to reducing disutility by directing the decision maker's attention to either actual past or expected future losses that result in shifted reference points
+OWNX after providing a graphical description of the approaches and a mathematical proof of the direction of their effect on judgment, we briefly illustrate the potential value of these approaches with examples from qualitative research on prostate cancer treatment decisions
+### introduction ###
+MISC in preventative health decisions, such as the decision to undergo an invasive screening test or treatment, people may be deterred from selecting the test because its disutility relative to not testing is greater than the utility associated with prevention of possible disease
+MISC for example, people may feel that the anticipated disutility of a colonoscopy for colorectal cancer screening is great enough relative to the expected utilty of prevention of possible colorectal cancer to dissuade them from seeking colonoscopy
+MISC the prospect theory editing operation  CITATION , by which a decision maker's reference point is determined, can have important impacts on the perceived disutility of the test
+MISC the work of rothman, salovey, and colleagues on message framing has tested prospect theory predictions of how the description of test outcomes as gains or losses as well as the conceptualization of the purpose of the test as preventative vs diagnostic and the consequent perception of whether the test is "safe" or "risky" can affect test rates  CITATION
+MISC specifically, message framing theories predict that when a procedure is perceived as risky e g , cancer screening tests may cause a patient to find out that they have cancer, loss-framed messages will promote testing more strongly than gain-framed messages, because people favor risky prospects over sure prospects in the domain of losses
+MISC on the other hand, when a procedure is perceived as safe e g , sunscreen prevents sunburn and skin cancer, gain-framed messages are predicted to be more effective because people prefer sure prospects to risky prospects in the domain of gains
+MISC several public health intervention studies have examined message framing and generally found evidence favoring the predictions  CITATION
+AIMX on the basis of the prospect theory value function, this paper develops two approaches to reducing perceived disutility by directing the decision maker's attention to either actual past or expected future losses that can serve as reference points and are not consequences of the test itself
+CONT these approaches thus differ from message framing, which focuses on how the test outcomes are described and manipulates gain and loss framing
+OWNX we instead derive the potential impact of directly refocusing the decision maker's reference point
+### abstract ###
+AIMX this paper extends previous research showing that experienced difficulty of recall can influence evaluative judgments CITATION to a field study of university students rating a course
+OWNX students completed a mid-course evaluation form in which they were asked to list either  NUMBER  ways in which the course could be improved a relatively easy task or  NUMBER  ways in which the course could be improved a relatively difficult task
+OWNX respondents who had been asked for  NUMBER  critical comments subsequently rated the course more favorably than respondents who had been asked for  NUMBER  critical comments
+OWNX an internal analysis suggests that the number of critiques solicited provides a frame against which accessibility of instances is evaluated
+OWNX the paper concludes with a discussion of implications of the present results and possible directions for future research
+### introduction ###
+MISC according to tversky and kahneman's  CITATION  availability heuristic  people sometimes judge the frequency of events in the world by the ease with which examples come to mind
+MISC this process has generally been demonstrated by asking participants to assess the relative likelihood of two categories in which instances of the first category are more difficult to recall than instances of the second category  despite the fact that instances of the first category are more common in the world
+MISC for instance  kahneman and tversky  CITATION  found that most people think the letter r more often appears in english words as the first letter than the third letter  presumably because the first letter provides a better cue for recalling instances of words than does the third letter
+MISC in fact  it turns out that r appears more often as the third than first letter in english words
+MISC schwarz et al CITATION  observed that the classic studies demonstrating the availability heuristic failed to distinguish an interpretation based on ease of retrieval from an alternative interpretation based on content of retrieval in which an event is judged more common when a larger number of examples come to mind
+MISC to tease apart these accounts  schwarz et al CITATION  asked participants in one   study to list either  NUMBER  or  NUMBER  examples of assertive or unassertive behavior that they have exhibited and then rate themselves on their overall degree of assertiveness
+MISC participants rated themselves as more assertive after they had listed  NUMBER  examples of assertive behavior a relatively easy task rather than  NUMBER  examples a relatively difficult task  similarly  they rated themselves as less assertive i e   more unassertive after they had listed  NUMBER  rather than  NUMBER  examples of unassertive behavior
+MISC similar patterns of results have been observed in many other studies of frequency-related judgments  including the rate at which a particular letter occurs in various positions of words  CITATION   the quality of one's own memory  CITATION   the frequency of one's own past behaviors  CITATION   one's susceptibility to heart disease  CITATION  and one's susceptibility to sexual assault  CITATION
+MISC for a review of this literature see schwarz  CITATION
+MISC thus  an abundance of data supports the original interpretation of the availability heuristic  categories are judged to be more common when instances more easily come to mind  even when a smaller absolute number of instances are generated
+MISC this program has been extended from frequency-based judgments to  evaluative judgments of such targets as public transportation  CITATION   luxury automobiles  CITATION   and one's own childhood  CITATION
+MISC for instance  winkielman and schwarz  CITATION  asked participants to recall either  NUMBER  childhood events an easy task or  NUMBER  childhood events a difficult task
+MISC some participants were then led to believe that memories from pleasant periods tend to fade  while others were led to believe that memories from unpleasant periods tend to fade
+MISC when later asked to evaluate their childhood  participants believed that pleasant memories fade rated their childhood more favorably when they completed the difficult task  NUMBER  events than the easy task  NUMBER  events  participants who believed that unpleasant memories fade rated their childhood more favorably when they completed the easy rather than difficult task
+MISC previous studies of the availability heuristic using the paradigm of schwarz et al CITATION  have turned up impressive and robust results
+MISC however  these demonstrations have been restricted primarily to laboratory surveys in which task of recalling examples then making an overall assessment may seem somewhat artificial to participants and the responses of little consequence
+MISC more important  most participants in previous studies presumably had little prior experience with the particular likert scale that served as the dependent measure e g   most had never before rated their childhood or public transportation on a  NUMBER -point scale
+MISC hence  ratings of respondents may be especially susceptible to superficial cues-such as the accessibility of instances-when mapping their beliefs and attitudes onto an unfamiliar response scale
+OWNX the present investigation overcomes these limitations through a  field study  of students evaluating a course
+MISC first  evaluations are a normal facet of most university courses in which students are commonly asked to list specific suggestions and also provide a global assessment
+MISC moreover  course evaluations are consequential  as they can influence future course offerings and course staffing  promotion and tenure decisions  and provide information to future prospective students of the target course
+MISC second  students at universities quickly become familiar with standard course evaluation scales and how ratings are distributed across classes  often relying on these scores in choosing among elective courses
+MISC the study of course evaluations is also interesting in its own right
+MISC a number of recent papers have questioned the validity of these ratings  and a lively debate appeared some years ago in the american psychologist  CITATION
+MISC thus far  questions of discriminant validity have mainly focused on the correlation between teaching ratings and apparently irrelevant factors such as the students' expected grades or the course workload
+MISC to date there have been few published investigations of the relationship between the design of course feedback forms and summary course evaluations
+AIMX the present study attempts to answer the following provocative question  can one paradoxically obtain higher course ratings by soliciting a greater number of critical comments from students
+### abstract ###
+AIMX this paper extends previous research showing that experienced difficulty of recall can influence evaluative judgments CITATION to a field study of university students rating a course
+OWNX students completed a mid-course evaluation form in which they were asked to list either  NUMBER  ways in which the course could be improved a relatively easy task or  NUMBER  ways in which the course could be improved a relatively difficult task
+OWNX respondents who had been asked for  NUMBER  critical comments subsequently rated the course more favorably than respondents who had been asked for  NUMBER  critical comments
+OWNX an internal analysis suggests that the number of critiques solicited provides a frame against which accessibility of instances is evaluated
+OWNX the paper concludes with a discussion of implications of the present results and possible directions for future research
+### introduction ###
+MISC according to tversky and kahneman's  CITATION  availability heuristic  people sometimes judge the frequency of events in the world by the ease with which examples come to mind
+MISC this process has generally been demonstrated by asking participants to assess the relative likelihood of two categories in which instances of the first category are more difficult to recall than instances of the second category  MISC despite the fact that instances of the first category are more common in the world
+MISC for instance  kahneman and tversky  CITATION  found that most people think the letter r more often appears in english words as the first letter than the third letter  presumably because the first letter provides a better cue for recalling instances of words than does the third letter
+MISC in fact  it turns out that r appears more often as the third than first letter in english words
+MISC schwarz et al CITATION  observed that the classic studies demonstrating the availability heuristic failed to distinguish an interpretation based on ease of retrieval from an alternative interpretation based on content of retrieval in which an event is judged more common when a larger number of examples come to mind
+MISC to tease apart these accounts  schwarz et al CITATION  asked participants in one   study to list either  NUMBER  or  NUMBER  examples of assertive or unassertive behavior that they have exhibited and then rate themselves on their overall degree of assertiveness
+MISC participants rated themselves as more assertive after they had listed  NUMBER  examples of assertive behavior a relatively easy task rather than  NUMBER  examples a relatively difficult task  similarly  they rated themselves as less assertive i e   more unassertive after they had listed  NUMBER  rather than  NUMBER  examples of unassertive behavior
+MISC similar patterns of results have been observed in many other studies of frequency-related judgments  including the rate at which a particular letter occurs in various positions of words  CITATION   the quality of one's own memory  CITATION   the frequency of one's own past behaviors  CITATION   one's susceptibility to heart disease  CITATION  and one's susceptibility to sexual assault  CITATION
+MISC for a review of this literature see schwarz  CITATION
+MISC thus  an abundance of data supports the original interpretation of the availability heuristic  categories are judged to be more common when instances more easily come to mind  even when a smaller absolute number of instances are generated
+MISC this program has been extended from frequency-based judgments to  evaluative judgments of such targets as public transportation  CITATION   luxury automobiles  CITATION   and one's own childhood  CITATION
+MISC for instance  winkielman and schwarz  CITATION  asked participants to recall either  NUMBER  childhood events an easy task or  NUMBER  childhood events a difficult task
+MISC some participants were then led to believe that memories from pleasant periods tend to fade  while others were led to believe that memories from unpleasant periods tend to fade
+MISC when later asked to evaluate their childhood  participants believed that pleasant memories fade rated their childhood more favorably when they completed the difficult task  NUMBER  events than the easy task  NUMBER  events  participants who believed that unpleasant memories fade rated their childhood more favorably when they completed the easy rather than difficult task
+MISC previous studies of the availability heuristic using the paradigm of schwarz et al CITATION  have turned up impressive and robust results
+CONT however  these demonstrations have been restricted primarily to laboratory surveys in which task of recalling examples then making an overall assessment may seem somewhat artificial to participants and the responses of little consequence
+CONT more important  most participants in previous studies presumably had little prior experience with the particular likert scale that served as the dependent measure e g   most had never before rated their childhood or public transportation on a  NUMBER -point scale
+MISC hence  ratings of respondents may be especially susceptible to superficial cues-such as the accessibility of instances-when mapping their beliefs and attitudes onto an unfamiliar response scale
+AIMX the present investigation overcomes these limitations through a  field study  of students evaluating a course
+MISC first  evaluations are a normal facet of most university courses in which students are commonly asked to list specific suggestions and also provide a global assessment
+MISC moreover  course evaluations are consequential  as they can influence future course offerings and course staffing  promotion and tenure decisions  and provide information to future prospective students of the target course
+MISC second  students at universities quickly become familiar with standard course evaluation scales and how ratings are distributed across classes  often relying on these scores in choosing among elective courses
+MISC the study of course evaluations is also interesting in its own right
+MISC a number of recent papers have questioned the validity of these ratings  and a lively debate appeared some years ago in the american psychologist  CITATION
+MISC thus far  questions of discriminant validity have mainly focused on the correlation between teaching ratings and apparently irrelevant factors such as the students' expected grades or the course workload
+MISC to date there have been few published investigations of the relationship between the design of course feedback forms and summary course evaluations
+AIMX the present study attempts to answer the following provocative question  can one paradoxically obtain higher course ratings by soliciting a greater number of critical comments from students
+### abstract ###
+MISC third-party punishment has recently received attention as an explanation for human altruism
+MISC feelings of anger in response to norm violations are assumed to motivate third-party sanctions, yet there is only sparse and indirect support for this idea
+AIMX we investigated the impact of both anger and guilt feelings on third-party sanctions
+OWNX in two studies both emotions were independently manipulated
+OWNX results show that anger and guilt independently constitute sufficient but not necessary causes of punishment
+OWNX low levels of punishment are observed only when neither emotion is elicited
+OWNX we discuss the implications of these findings for the functions of altruistic sanctions
+### introduction ###
+MISC people often defend the interests of others
+MISC they stand up for their friends if someone speaks ill about them in their absence
+MISC they do not tolerate a colleague being bullied at work
+MISC they boycott consumer products that are produced using child labor
+MISC some even come to the aid of a stranger who is being physically harassed, in spite of obvious personal danger
+MISC in general, people retaliate against injustice even if they are not directly victimized
+MISC sanctioning of norm-violations is vital for prosocial behavior to be sustained  CITATION
+MISC however, punishing norm-violations is costly in terms of time and energy
+MISC it may even impose physical risks
+MISC punishing injustice is therefore considered to be a moral act, particularly when it is performed on behalf of others  CITATION
+AIMX this begs the question of what incites third-party sanctions, as they usually oppose self-interest### abstract ###
+MISC third-party punishment has recently received attention as an explanation for human altruism
+CONT feelings of anger in response to norm violations are assumed to motivate third-party sanctions, yet there is only sparse and indirect support for this idea
+AIMX we investigated the impact of both anger and guilt feelings on third-party sanctions
+OWNX in two studies both emotions were independently manipulated
+OWNX results show that anger and guilt independently constitute sufficient but not necessary causes of punishment
+OWNX low levels of punishment are observed only when neither emotion is elicited
+OWNX we discuss the implications of these findings for the functions of altruistic sanctions
+### introduction ###
+MISC people often defend the interests of others
+MISC they stand up for their friends if someone speaks ill about them in their absence
+MISC they do not tolerate a colleague being bullied at work
+MISC they boycott consumer products that are produced using child labor
+MISC some even come to the aid of a stranger who is being physically harassed, in spite of obvious personal danger
+MISC in general, people retaliate against injustice even if they are not directly victimized
+MISC sanctioning of norm-violations is vital for prosocial behavior to be sustained  CITATION
+MISC however, punishing norm-violations is costly in terms of time and energy
+MISC it may even impose physical risks
+MISC punishing injustice is therefore considered to be a moral act, particularly when it is performed on behalf of others  CITATION
+MISC this begs the question of what incites third-party sanctions, as they usually oppose self-interest### abstract ###
+MISC previous research on anchoring has shown this heuristic to be a very robust psychological phenomenon ubiquitous across many domains of human judgment and decision-making
+MISC despite the prevalence of anchoring effects  researchers have only recently begun to investigate the underlying factors responsible for how and in what ways a person is susceptible to them
+AIMX this paper examines how one such factor  the big-five personality trait of openness-to-experience  influences the effect of previously presented anchors on participants' judgments
+OWNX our findings indicate that participants high in openness-to-experience were significantly more influenced by anchoring cues relative to participants low in this trait
+OWNX these findings were consistent across two different types of anchoring tasks providing convergent evidence for our hypothesis
+### introduction ###
+MISC the anchoring effect  CITATION  refers to the adjustment of one's assessment  higher or lower  based upon previously presented external information or an  anchor
+MISC the anchoring heuristic appears to be prevalent throughout human decision processes and has been shown to reliably influence judgments in a variety of domains including probability estimates  CITATION   negotiation  CITATION   legal judgments  CITATION   and general knowledge  CITATION
+MISC further  anchoring effects appear viable across most situations for both novices and experts  CITATION  and seem to be effective under conditions of monetary incentives  CITATION  and in real-world settings  CITATION
+MISC anchoring thus appears to be a very robust psychological phenomenon
+MISC however  not all individuals may be equally influenced by anchoring cues
+MISC identification of factors that influence how and in what ways a person is susceptible to this heuristic should further the understanding of the process
+MISC one avenue of approach is to investigate the role of individual difference factors
+MISC tversky and kahneman  CITATION  pointed to the important role of  personal characteristics  of the decision maker in risky choice situations
+MISC later work by stanovich and west  CITATION  suggested that intellectual traits influence decision making and consequential choice preference
+MISC recently  individual differences have been found in numerical reliance  CITATION   ambiguity  CITATION   preference for actions or inactions  CITATION  and the optimistic bias  CITATION
+MISC the big-five personality traits  CITATION  have proven to be important individual difference factors for understanding decision choices
+MISC further  attesting to the importance of individual differences  levin and hart  CITATION  demonstrated that individual differences in preference appear to originate at a very early age
+MISC taken together  these findings suggest that the impact of individual difference factors on decision-making is both profound and pervasive
+AIMX the purpose of the current study is to investigate how one individual difference factor may influence the strength of the anchoring effect
+AIMX specifically  we are interested in how individual differences in the personality trait of openness-to-experience influences anchoring effects
+MISC in the last couple of decades the five-factor model of personality has become the most widely tested and well-regarded personality trait model
+MISC a great deal of research has supported this model's validity and reliability  CITATION
+MISC while most research has agreed on the nature of the first four factors  the nature of the fifth factor has been controversial  a controversy predominately based upon whether a lexical approach  derived from language frequency within the lexicon of a particular language  CITATION   or a questionnaire approach  CITATION  should be used to measure it
+MISC the fifth factor is often labeled openness-to-experience  which refers to a propensity to adjust beliefs and behaviors when exposed to new types of information or ideas  CITATION
+MISC individuals scoring high on this dimension are more open to new ideas  CITATION  and motivated to seek variety and external experience
+MISC individuals scoring low tend to be less inclined to consider alternative opinions and are more steadfast in their own beliefs  CITATION  making them more likely to rely upon information that is familiar and conventional  CITATION
+MISC a fundamental aspect of the anchoring effect is that individuals are sensitive to information which they have experienced
+MISC this change in judgment  which is based upon external cues  seems particularly relevant and related to the openness-to-experience personality trait
+MISC specifically  as research has shown  the openness trait reflects individual propensities to  adjust  one's beliefs  CITATION  and to consider external information  CITATION
+OWNX therefore  based upon the nature of the openness-to-experience trait and the processes involved in the anchoring effect  we hypothesize that individual differences in openness-to-experience will influence susceptibility to anchoring effects
+OWNX specifically  we hypothesize that the judgments of those individuals high in this trait will be more influenced by previously presented anchors whereas those individuals low in this trait will be less influenced by the anchor
+OWNX to test this hypothesis  we first measured individual levels of the personality trait of openness-to-experience
+OWNX we then provided participants with an anchoring task involving either the mississippi river study  NUMBER  or african nations in the un study  NUMBER 
+### abstract ###
+MISC The influence of lipid molecules on the aggregation of a highly amyloidogenic segment of human islet amyloid polypeptide, hIAPP20 29, and the corresponding sequence from rat has been studied by all-atom replica exchange molecular dynamics simulations with explicit solvent model.
+MISC hIAPP20 29 fragments aggregate into partially ordered -sheet oligomers and then undergo large conformational reorganization and convert into parallel/antiparallel -sheet oligomers in mixed in-register and out-of-register patterns.
+MISC The hydrophobic interaction between lipid tails and residues at positions 23 25 is found to stabilize the ordered -sheet structure, indicating a catalysis role of lipid molecules in hIAPP20 29 self-assembly.
+MISC The rat IAPP variants with three proline residues maintain unstructured micelle-like oligomers, which is consistent with non-amyloidogenic behavior observed in experimental studies.
+AIMX Our study provides the atomic resolution descriptions of the catalytic function of lipid molecules on the aggregation of IAPP peptides.
+### introduction ###
+MISC A range of human diseases including Alzheimer's disease, Parkinson's disease, the spongiform encephalopathy and type 2 diabetes mellitus is associated with amyloid deposits of normally soluble proteins or peptides CITATION CITATION.
+MISC In T2DM, the main protein component of fibrillar protein deposits in the pancreatic islets of langerhans has been identified as a 37-residue hormone referred to as islet amyloid polypeptide or amylin CITATION, which is synthesized in -cells of the pancreas and cosecreted with insulin CITATION, CITATION.
+MISC There are convincing evidences that the toxicity of amyloid related diseases may be caused by the soluble intermediate oligomers instead of mature fibrils CITATION CITATION, and the interaction between lipid bilayer and these soluble oligomer CITATION CITATION.
+MISC For example, channel-like annular structures of oligomers of several amyloidogenic peptides have been observed on the lipid membrane CITATION, CITATION, and have been studied by molecular dynamics simulations as well CITATION, CITATION.
+MISC Moreover, up to 10 percent components in amyloid deposits from patient tissues were lipid molecules, indicating that the lipids can be uptaken from membranes and then wrapped into fibrillar amyloid CITATION CITATION.
+MISC Most studies so far treated the lipid bilayer as a template to exert its influences on the conformation and aggregation properties of peptides CITATION CITATION.
+MISC There is, however, missing information about how individual lipid molecule involving in the peptide aggregation process.
+OWNX It will then be beneficial to understand the molecular details of how single lipid molecule influences the assembly process of amyloidogenic peptides which is the main focus of the current study.
+MISC Besides the external factors, such as lipid bilayer, pH value, the sequences of peptide themselves have great effects on the aggregation behaviors.
+MISC Several other species such as non-human primates CITATION, cats CITATION, raccoons CITATION, and rodent species can produce IAPP, but the primary sequence of IAPP varies slightly among species.
+MISC Importantly, IAPP from rodent species, such as rat/mouse IAPP lose capacities of aggregating into amyloid fibrils CITATION, but transgenic mouse models that express human IAPP develop islet deposits CITATION.
+MISC The rIAPP differs from hIAPP in six amino acids and five of them are clustered in a short decapeptide, which is considered to be strongly amyloidogenic and forms similar unbranched fibrils itself to the full-length hIAPP CITATION, CITATION.
+MISC The three proline substitutions in rIAPP20 29 are believed to be highly responsible for the lacking of the amyloidogenic property of the segment or full-length peptide CITATION.
+MISC Although rIAPP has been intensively applied in experimental research acting as a potential peptide inhibitor for peptide aggregation CITATION, CITATION, the molecular mechanism of its resistance to amyloid is still not crystal clear.
+MISC Here, the aggregation of rIAPP20 29 segments is subjected to the same simulation condition as hIAPP20 29 to explore the non-amyloidogenic properties of the peptide and meanwhile to evaluate the simulation results as a negative control.
+MISC Due to the metastable and short-lived nature of soluble pre-fibril oligomers at the early steps of fibril formation, experimental data are usually difficult to obtain CITATION, CITATION.
+MISC Thus, the computational approaches have been employed to complement experimental investigations to gain the insight into the aggregation mechanisms CITATION CITATION.
+MISC Considering multiple copies of peptides needed due to the self-assembly nature of amyloid formation, various simplified representations of molecular systems using implicit solvent models were preferred rather than all-atom models.
+MISC Santini et al. performed ART-OPEP simulations on trimer of A 16 22 by treating side chains as a bead and solvent implicitly CITATION.
+MISC A novel mechanism for single -strand to surmount unnatural registry without dissociation, referred to as reptation was proposed before experimental characterization CITATION.
+MISC Cheon et al. used ProFASi package to reduce the bonded potential energy to include torsional angles only and treated hydrogen bonds explicitly CITATION.
+MISC They were able to carry out two series of 100 Monte Carlo simulations on 20 copies of two fragments A 16 22 and A 25 35.
+MISC They observed early-stage events and obtained an atomic-detailed description of nucleated conformational conversion CITATION model for amyloid aggregation.
+MISC In these studies, simulations were usually started with randomly oriented, extended or random-coiled peptides which underwent ab initio folding to form -sheet oligomers.
+MISC Albeit simplified models allow studying large-scale systems CITATION or observing more events in limited simulation time CITATION, all-atom explicit solvent models can reproduce amyloid aggregation in aqueous environment more accurately and supply more information on sidechain contacts CITATION.
+MISC Nguyen et al. prolonged a series of conventional MD simulations to 300 ns on A 16 22 of 3 6 oligomer size with explicit solvent CITATION.
+MISC The extensive simulations were able to probe the interpeptide sidechain contacts and large conformational fluctuations upon monomer addition to preformed -sheet oligomers in a dock-lock mechanism.
+OWNX In our studies, an enhanced-sampling method, replica exchange molecular dynamics CITATION was implemented CITATION, and all water and peptide atoms are treated explicitly by applying OPLS-AA force field CITATION.
+OWNX The four copies of amyloidogenic segment hIAPP20 29 and an extra dioleoylphosphatidylcholine lipid molecule were initially set in extended conformation and dispersed in simulation boxes.
+OWNX The formation of -sheet containing tetramers, was observed within 100 ns ab initio REMD folding simulations.
+OWNX The acquirement of abundant intermediate states suggested two possible -sheet transition pathways.
+OWNX Simulation of four hIAPP peptides without lipid molecule was also performed.
+OWNX Nonamyloidogenic rat IAPP segments were studied as a negative control with the aim of understanding the inhibitory effect of three proline substitutions.### abstract ###
+MISC The influence of lipid molecules on the aggregation of a highly amyloidogenic segment of human islet amyloid polypeptide, hIAPP20 29, and the corresponding sequence from rat has been studied by all-atom replica exchange molecular dynamics simulations with explicit solvent model.
+MISC hIAPP20 29 fragments aggregate into partially ordered -sheet oligomers and then undergo large conformational reorganization and convert into parallel/antiparallel -sheet oligomers in mixed in-register and out-of-register patterns.
+MISC The hydrophobic interaction between lipid tails and residues at positions 23 25 is found to stabilize the ordered -sheet structure, indicating a catalysis role of lipid molecules in hIAPP20 29 self-assembly.
+MISC The rat IAPP variants with three proline residues maintain unstructured micelle-like oligomers, which is consistent with non-amyloidogenic behavior observed in experimental studies.
+AIMX Our study provides the atomic resolution descriptions of the catalytic function of lipid molecules on the aggregation of IAPP peptides.
+### introduction ###
+MISC A range of human diseases including Alzheimer's disease, Parkinson's disease, the spongiform encephalopathy and type 2 diabetes mellitus is associated with amyloid deposits of normally soluble proteins or peptides CITATION CITATION.
+MISC In T2DM, the main protein component of fibrillar protein deposits in the pancreatic islets of langerhans has been identified as a 37-residue hormone referred to as islet amyloid polypeptide or amylin CITATION, which is synthesized in -cells of the pancreas and cosecreted with insulin CITATION, CITATION.
+MISC There are convincing evidences that the toxicity of amyloid related diseases may be caused by the soluble intermediate oligomers instead of mature fibrils CITATION CITATION, and the interaction between lipid bilayer and these soluble oligomer CITATION CITATION.
+MISC For example, channel-like annular structures of oligomers of several amyloidogenic peptides have been observed on the lipid membrane CITATION, CITATION, and have been studied by molecular dynamics simulations as well CITATION, CITATION.
+MISC Moreover, up to 10 percent components in amyloid deposits from patient tissues were lipid molecules, indicating that the lipids can be uptaken from membranes and then wrapped into fibrillar amyloid CITATION CITATION.
+MISC Most studies so far treated the lipid bilayer as a template to exert its influences on the conformation and aggregation properties of peptides CITATION CITATION.
+CONT There is, however, missing information about how individual lipid molecule involving in the peptide aggregation process.
+AIMX It will then be beneficial to understand the molecular details of how single lipid molecule influences the assembly process of amyloidogenic peptides which is the main focus of the current study.
+MISC Besides the external factors, such as lipid bilayer, pH value, the sequences of peptide themselves have great effects on the aggregation behaviors.
+MISC Several other species such as non-human primates CITATION, cats CITATION, raccoons CITATION, and rodent species can produce IAPP, but the primary sequence of IAPP varies slightly among species.
+MISC Importantly, IAPP from rodent species, such as rat/mouse IAPP lose capacities of aggregating into amyloid fibrils CITATION, but transgenic mouse models that express human IAPP develop islet deposits CITATION.
+MISC The rIAPP differs from hIAPP in six amino acids and five of them are clustered in a short decapeptide, which is considered to be strongly amyloidogenic and forms similar unbranched fibrils itself to the full-length hIAPP CITATION, CITATION.
+MISC The three proline substitutions in rIAPP20 29 are believed to be highly responsible for the lacking of the amyloidogenic property of the segment or full-length peptide CITATION.
+CONT Although rIAPP has been intensively applied in experimental research acting as a potential peptide inhibitor for peptide aggregation CITATION, CITATION, the molecular mechanism of its resistance to amyloid is still not crystal clear.
+OWNX Here, the aggregation of rIAPP20 29 segments is subjected to the same simulation condition as hIAPP20 29 to explore the non-amyloidogenic properties of the peptide and meanwhile to evaluate the simulation results as a negative control.
+MISC Due to the metastable and short-lived nature of soluble pre-fibril oligomers at the early steps of fibril formation, experimental data are usually difficult to obtain CITATION, CITATION.
+OWNX Thus, the computational approaches have been employed to complement experimental investigations to gain the insight into the aggregation mechanisms CITATION CITATION.
+OWNX Considering multiple copies of peptides needed due to the self-assembly nature of amyloid formation, various simplified representations of molecular systems using implicit solvent models were preferred rather than all-atom models.
+MISC Santini et al. performed ART-OPEP simulations on trimer of A 16 22 by treating side chains as a bead and solvent implicitly CITATION.
+MISC A novel mechanism for single -strand to surmount unnatural registry without dissociation, referred to as reptation was proposed before experimental characterization CITATION.
+MISC Cheon et al. used ProFASi package to reduce the bonded potential energy to include torsional angles only and treated hydrogen bonds explicitly CITATION.
+MISC They were able to carry out two series of 100 Monte Carlo simulations on 20 copies of two fragments A 16 22 and A 25 35.
+MISC They observed early-stage events and obtained an atomic-detailed description of nucleated conformational conversion CITATION model for amyloid aggregation.
+MISC In these studies, simulations were usually started with randomly oriented, extended or random-coiled peptides which underwent ab initio folding to form -sheet oligomers.
+MISC Albeit simplified models allow studying large-scale systems CITATION or observing more events in limited simulation time CITATION, all-atom explicit solvent models can reproduce amyloid aggregation in aqueous environment more accurately and supply more information on sidechain contacts CITATION.
+MISC Nguyen et al. prolonged a series of conventional MD simulations to 300 ns on A 16 22 of 3 6 oligomer size with explicit solvent CITATION.
+MISC The extensive simulations were able to probe the interpeptide sidechain contacts and large conformational fluctuations upon monomer addition to preformed -sheet oligomers in a dock-lock mechanism.
+OWNX In our studies, an enhanced-sampling method, replica exchange molecular dynamics CITATION was implemented CITATION, and all water and peptide atoms are treated explicitly by applying OPLS-AA force field CITATION.
+OWNX The four copies of amyloidogenic segment hIAPP20 29 and an extra dioleoylphosphatidylcholine lipid molecule were initially set in extended conformation and dispersed in simulation boxes.
+OWNX The formation of -sheet containing tetramers, was observed within 100 ns ab initio REMD folding simulations.
+OWNX The acquirement of abundant intermediate states suggested two possible -sheet transition pathways.
+OWNX Simulation of four hIAPP peptides without lipid molecule was also performed.
+OWNX Nonamyloidogenic rat IAPP segments were studied as a negative control with the aim of understanding the inhibitory effect of three proline substitutions.
+### abstract ###
+MISC The firing rate of single neurons in the mammalian hippocampus has been demonstrated to encode for a range of spatial and non-spatial stimuli.
+MISC It has also been demonstrated that phase of firing, with respect to the theta oscillation that dominates the hippocampal EEG during stereotype learning behaviour, correlates with an animal's spatial location.
+MISC These findings have led to the hypothesis that the hippocampus operates using a dual coding system.
+OWNX To investigate the phenomenon of dual coding in the hippocampus, we examine a spiking recurrent network model with theta coded neural dynamics and an STDP rule that mediates rate-coded Hebbian learning when pre- and post-synaptic firing is stochastic.
+AIMX We demonstrate that this plasticity rule can generate both symmetric and asymmetric connections between neurons that fire at concurrent or successive theta phase, respectively, and subsequently produce both pattern completion and sequence prediction from partial cues.
+BASE This unifies previously disparate auto- and hetero-associative network models of hippocampal function and provides them with a firmer basis in modern neurobiology.
+OWNX Furthermore, the encoding and reactivation of activity in mutually exciting Hebbian cell assemblies demonstrated here is believed to represent a fundamental mechanism of cognitive processing in the brain.
+### introduction ###
+MISC The hippocampus and surrounding medial temporal lobe are implicated in declarative memory function in humans and other mammals CITATION.
+MISC Electrophysiology studies in a range of species have demonstrated that the activity of single pyramidal cells within this region can encode for the presence of both spatial and non-spatial stimuli CITATION.
+MISC The majority of empirical investigation has focussed on place cells neurons whose firing rate is directly correlated with an animal's spatial location within the corresponding place field CITATION.
+MISC Subsequent research has identified similar single cell responses to a variety of non-spatial cues including odour CITATION, complex visual images CITATION, CITATION, CITATION, running speed CITATION and the concept of a bed or nest CITATION.
+MISC It has also been demonstrated that the exact timing of place cell discharge, relative to the theta oscillation which dominates the hippocampal EEG during learning, correlates with distance travelled through a place field CITATION, CITATION, CITATION CITATION.
+MISC This phase precession mechanism creates a compressed theta coded firing pattern in place cells which corresponds to the sequence of place fields being traversed CITATION.
+MISC These findings have led to the hypothesis that the hippocampus operates using a dual rate and temporal coding system CITATION, CITATION.
+OWNX Here we present a spiking neural network model which utilises a dual coding system in order to encode and recall both symmetric and asymmetric connections between neurons that exhibit repeated synchronous and asynchronous firing patterns respectively.
+MISC The postulated mnemonic function of the hippocampus has been extensively modelled using recurrent neural networks, and this approach is supported by empirical data CITATION CITATION.
+MISC The biological correlate of these models is widely believed to be the CA3 region, which exhibits dense recurrent connectivity and wherein synaptic plasticity can be easily and reliably induced.
+MISC Pharmacological and genetic knockout studies have demonstrated that NMDAr-dependent synaptic plasticity in CA3 is critical for the rapid encoding of novel information, and synaptic output from CA3 critical for its retrieval CITATION, CITATION.
+MISC Recurrent neural network models of hippocampal mnemonic function have generally utilised rate-coded Hebbian learning rules to generate reciprocal associations between neurons with concurrently elevated firing rates CITATION, CITATION.
+MISC Hypothetically, this corresponds to the presence of either multiple stimuli or multiple overlapping place fields encountered at a single location CITATION CITATION.
+MISC The hippocampus is also implicated in sequence learning, and temporally asymmetric plasticity rules have subsequently been employed in recurrent network models to generate hetero-associative connections between neurons that fire with repeated temporal correlation CITATION CITATION.
+MISC Hypothetically, this corresponds to a sequence of place fields being traversed or stimuli being encountered on a behavioural timescale CITATION.
+MISC Importantly, previous computational models of hetero-associative learning have typically encoded each successive stage of a learned sequence with the activity of a single neuron, while empirical studies estimate that place fields are typically encoded by an ensemble of several hundred place cells CITATION, CITATION CITATION.
+CONT No computational model has thus far integrated auto- and hetero- associative learning in order to simultaneously generate both bi-directional and asymmetric connections between neurons that are active at the same and successive theta phases respectively using a single temporally asymmetric synaptic plasticity rule.
+MISC Empirical data indicates that changes in the strength of synapses within the hippocampus can depend upon temporal correlations in pre- and post- synaptic firing according to a spike-timing dependent plasticity rule CITATION CITATION.
+MISC It is not yet clear if rate-coded auto-associative network models of hippocampal mnemonic function are compatible with STDP or theta coded neural dynamics.
+AIMX        Here, we examine the synaptic dynamics generated by several different STDP rules in a spiking recurrent neural network model of CA3 during the encoding of temporal, rate and dual coded activity patterns created by a phenomenological model of phase precession.
+OWNX We demonstrate that under certain conditions - the STDP rule can generate both bi-directional connections between neurons which burst at concurrent theta phase and asymmetric connections between neurons which fire at consecutive theta phase.
+OWNX Subsequent superthreshold stimulation of a small number of simulated neurons generates putative recall activity, driven by recurrent excitation, that corresponds to pattern completion and/or sequence prediction in auto- and/or hetero- associative connections respectively.
+OWNX Interestingly, these neural dynamics are reminiscent of sharp wave ripple activity observed in vivo CITATION CITATION.
+OWNX These findings demonstrate that STDP and theta coded neural dynamics are compatible with rate-coded auto-associative network models of hippocampal function.
+OWNX Furthermore, the encoding and reactivation of dual coded Hebbian phase sequences of activity in mutually exciting neuronal ensembles demonstrated here has been proposed as a general neural coding mechanism for cognitive processing CITATION, CITATION CITATION .
+### abstract ###
+MISC The firing rate of single neurons in the mammalian hippocampus has been demonstrated to encode for a range of spatial and non-spatial stimuli.
+MISC It has also been demonstrated that phase of firing, with respect to the theta oscillation that dominates the hippocampal EEG during stereotype learning behaviour, correlates with an animal's spatial location.
+MISC These findings have led to the hypothesis that the hippocampus operates using a dual coding system.
+AIMX To investigate the phenomenon of dual coding in the hippocampus, we examine a spiking recurrent network model with theta coded neural dynamics and an STDP rule that mediates rate-coded Hebbian learning when pre- and post-synaptic firing is stochastic.
+OWNX We demonstrate that this plasticity rule can generate both symmetric and asymmetric connections between neurons that fire at concurrent or successive theta phase, respectively, and subsequently produce both pattern completion and sequence prediction from partial cues.
+OWNX This unifies previously disparate auto- and hetero-associative network models of hippocampal function and provides them with a firmer basis in modern neurobiology.
+MISC Furthermore, the encoding and reactivation of activity in mutually exciting Hebbian cell assemblies demonstrated here is believed to represent a fundamental mechanism of cognitive processing in the brain.
+### introduction ###
+MISC The hippocampus and surrounding medial temporal lobe are implicated in declarative memory function in humans and other mammals CITATION.
+MISC Electrophysiology studies in a range of species have demonstrated that the activity of single pyramidal cells within this region can encode for the presence of both spatial and non-spatial stimuli CITATION.
+MISC The majority of empirical investigation has focussed on place cells neurons whose firing rate is directly correlated with an animal's spatial location within the corresponding place field CITATION.
+MISC Subsequent research has identified similar single cell responses to a variety of non-spatial cues including odour CITATION, complex visual images CITATION, CITATION, CITATION, running speed CITATION and the concept of a bed or nest CITATION.
+MISC It has also been demonstrated that the exact timing of place cell discharge, relative to the theta oscillation which dominates the hippocampal EEG during learning, correlates with distance travelled through a place field CITATION, CITATION, CITATION CITATION.
+MISC This phase precession mechanism creates a compressed theta coded firing pattern in place cells which corresponds to the sequence of place fields being traversed CITATION.
+MISC These findings have led to the hypothesis that the hippocampus operates using a dual rate and temporal coding system CITATION, CITATION.
+AIMX Here we present a spiking neural network model which utilises a dual coding system in order to encode and recall both symmetric and asymmetric connections between neurons that exhibit repeated synchronous and asynchronous firing patterns respectively.
+MISC The postulated mnemonic function of the hippocampus has been extensively modelled using recurrent neural networks, and this approach is supported by empirical data CITATION CITATION.
+MISC The biological correlate of these models is widely believed to be the CA3 region, which exhibits dense recurrent connectivity and wherein synaptic plasticity can be easily and reliably induced.
+MISC Pharmacological and genetic knockout studies have demonstrated that NMDAr-dependent synaptic plasticity in CA3 is critical for the rapid encoding of novel information, and synaptic output from CA3 critical for its retrieval CITATION, CITATION.
+MISC Recurrent neural network models of hippocampal mnemonic function have generally utilised rate-coded Hebbian learning rules to generate reciprocal associations between neurons with concurrently elevated firing rates CITATION, CITATION.
+MISC Hypothetically, this corresponds to the presence of either multiple stimuli or multiple overlapping place fields encountered at a single location CITATION CITATION.
+MISC The hippocampus is also implicated in sequence learning, and temporally asymmetric plasticity rules have subsequently been employed in recurrent network models to generate hetero-associative connections between neurons that fire with repeated temporal correlation CITATION CITATION.
+MISC Hypothetically, this corresponds to a sequence of place fields being traversed or stimuli being encountered on a behavioural timescale CITATION.
+MISC Importantly, previous computational models of hetero-associative learning have typically encoded each successive stage of a learned sequence with the activity of a single neuron, while empirical studies estimate that place fields are typically encoded by an ensemble of several hundred place cells CITATION, CITATION CITATION.
+CONT No computational model has thus far integrated auto- and hetero- associative learning in order to simultaneously generate both bi-directional and asymmetric connections between neurons that are active at the same and successive theta phases respectively using a single temporally asymmetric synaptic plasticity rule.
+MISC Empirical data indicates that changes in the strength of synapses within the hippocampus can depend upon temporal correlations in pre- and post- synaptic firing according to a spike-timing dependent plasticity rule CITATION CITATION.
+MISC It is not yet clear if rate-coded auto-associative network models of hippocampal mnemonic function are compatible with STDP or theta coded neural dynamics.
+AIMX Here, we examine the synaptic dynamics generated by several different STDP rules in a spiking recurrent neural network model of CA3 during the encoding of temporal, rate and dual coded activity patterns created by a phenomenological model of phase precession.
+OWNX We demonstrate that under certain conditions - the STDP rule can generate both bi-directional connections between neurons which burst at concurrent theta phase and asymmetric connections between neurons which fire at consecutive theta phase.
+OWNX Subsequent superthreshold stimulation of a small number of simulated neurons generates putative recall activity, driven by recurrent excitation, that corresponds to pattern completion and/or sequence prediction in auto- and/or hetero- associative connections respectively.
+MISC Interestingly, these neural dynamics are reminiscent of sharp wave ripple activity observed in vivo CITATION CITATION.
+OWNX These findings demonstrate that STDP and theta coded neural dynamics are compatible with rate-coded auto-associative network models of hippocampal function.
+OWNX Furthermore, the encoding and reactivation of dual coded Hebbian phase sequences of activity in mutually exciting neuronal ensembles demonstrated here has been proposed as a general neural coding mechanism for cognitive processing CITATION, CITATION CITATION .
+### abstract ###
+MISC Metabolic network reconstructions represent valuable scaffolds for -omics data integration and are used to computationally interrogate network properties.
+CONT However, they do not explicitly account for the synthesis of macromolecules.
+AIMX Here, we present the first genome-scale, fine-grained reconstruction of Escherichia coli's transcriptional and translational machinery, which produces 423 functional gene products in a sequence-specific manner and accounts for all necessary chemical transformations.
+OWNX Legacy data from over 500 publications and three databases were reviewed, and many pathways were considered, including stable RNA maturation and modification, protein complex formation, and iron sulfur cluster biogenesis.
+OWNX This reconstruction represents the most comprehensive knowledge base for these important cellular functions in E. coli and is unique in its scope.
+AIMX Furthermore, it was converted into a mathematical model and used to: quantitatively integrate gene expression data as reaction constraints and compute functional network states, which were compared to reported experimental data.
+OWNX For example, the model predicted accurately the ribosome production, without any parameterization.
+MISC Also, in silico rRNA operon deletion suggested that a high RNA polymerase density on the remaining rRNA operons is needed to reproduce the reported experimental ribosome numbers.
+OWNX Moreover, functional protein modules were determined, and many were found to contain gene products from multiple subsystems, highlighting the functional interaction of these proteins.
+OWNX This genome-scale reconstruction of E. coli's transcriptional and translational machinery presents a milestone in systems biology because it will enable quantitative integration of -omics datasets and thus the study of the mechanistic principles underlying the genotype phenotype relationship.
+### introduction ###
+MISC High-throughput experimental technologies enable the production of heterogeneous data, such as expression profiles and proteomic data, for almost any organism of interest.
+MISC A detailed mathematical representation of the in vivo cellular network is required to obtain a holistic understanding of cellular processes from these data sets and to quantitatively integrate them into a biological context.
+MISC One such approach is the bottom-up network reconstruction, which builds manually networks in a brick-by-brick manner using genome annotation and component-specific information CITATION, CITATION.
+MISC This reconstruction procedure is well established for metabolic reaction networks and has been applied to many organisms, including Human CITATION, Saccharomyces cerevisiae CITATION, CITATION, Leishmani major CITATION, Escherichia coli CITATION, Helicobacter pylori CITATION, Pseudomonas aeruginosa CITATION, and Pseudomonas putida CITATION, CITATION .
+MISC These bottom-up metabolic networks differ from other network reconstructions as they are tailored to the genomic content of the target organism and built manually using biochemical, physiological, and other experimental information in addition to the genome annotation.
+MISC Hence, these reconstructions can be thought of as biochemically, genetically, and genomically structured knowledge bases CITATION.
+MISC The reconstruction and modeling procedure is a 4-step process: obtaining a draft reaction list based on genome annotation and biochemical databases, refinement of reaction list using experimental information, conversion of the reaction list into a computable format and application of systems boundaries to define condition-specific models, and the evaluation and validation of the model content using various mathematical methods.
+MISC By iterating step 2 to 4, reconstructions that are self-consistent within their defined scope can be generated.
+MISC Metabolic network reconstruction have demonstrated to be useful in at least 5 areas of applications CITATION : biological discovery CITATION, phenotypic behavior CITATION, bacterial evolution CITATION, network analysis CITATION, and metabolic engineering CITATION.
+MISC This wide range of applications of the metabolic reconstructions is possible because they can be readily converted into predictive, condition-specific models.
+CONT Unlike more traditional approaches to modeling metabolism, the constraint-based modeling approach requires few, if any, parameters CITATION, CITATION.
+MISC The stoichiometric information encoded in the reconstruction can be represented mathematically as a stoichiometric matrix, S, where the rows correspond to the components and the columns correspond to the reactions .
+MISC While the COBRA approach has been successfully applied to metabolic networks, the same principles and assumptions can be also employed to reconstruct and model other cellular functions, such as signaling CITATION CITATION, regulation CITATION, and protein synthesis CITATION.
+BASE In this study, we extended and refined earlier work by Allen et al., which proposed a stoichiometric formalism to model protein synthesis and illustrated it on some E. coli genes and operons CITATION.
+OWNX We created a more detailed, gene-specific representation of the transcriptional and translational processes, which explicitly accounts for the sequence-specific synthesis of DNA, mRNA, and proteins.
+OWNX This reconstruction enables quantitative integration of high-throughput data such as gene expression, proteomic, and mRNA degradation data.
+MISC Moreover, proteins are produced in high copy numbers in growing cells; thus, any quantitative mechanistic modeling and analysis of high-throughput data needs to account for the synthesis cost associated with these molecules.
+MISC Numerous studies have been published that investigate protein synthesis using kinetic models CITATION CITATION.
+CONT These models are generally tailored to the questions they address making it difficult to readily apply them for modified problems.
+MISC Since stoichiometric relationships are a common requisite for any type of mechanistic modeling, organism-specific BiGG knowledge bases can be used as templates to derive problem-specific, mechanistic models.
+MISC In fact, network stoichiometry is a dominant feature of kinetic models as well CITATION.
+MISC Thus, network reconstruction serves as a platform for steady-state and kinetic modeling .
+AIMX In this study, we present a new generation of network reconstructions, which directly account for the synthesis of individual mRNA and proteins.
+OWNX We named the mathematical representation of this reconstruction the Expression matrix, or E-matrix, since it encodes the expression of mRNA and proteins.
+OWNX All network reactions were formulated to account for gene-specific and E. coli-specific details, such as nucleotide composition, operon association, and sigma factor usage.
+OWNX Furthermore, we used information from three databases and more than 500 scientific publications to formulate mechanistically detailed and accurate reactions.
+OWNX This reconstruction is the first comprehensive database detailing the available information for these cellular functions and can thus be deemed a knowledge base.
+OWNX After conversion of the E-matrix reconstruction into condition-specific models corresponding to different doubling times, we were able to accurately predict the ribosome production reported in literature, without any parameterization.
+OWNX Furthermore, we show that the E-matrix can be used to study the effect of rRNA operon deletion.
+OWNX Our results predict that a high density of RNA polymerases is required on the remaining rRNA operons, to achieve the reported ribosome numbers.
+OWNX Finally, we show that proteins used in the E-matrix could be grouped into functional modules which lead to a more simplified view of the network.
+### abstract ###
+MISC Neuronal activity is mediated through changes in the probability of stochastic transitions between open and closed states of ion channels.
+CONT While differences in morphology define neuronal cell types and may underlie neurological disorders, very little is known about influences of stochastic ion channel gating in neurons with complex morphology.
+AIMX We introduce and validate new computational tools that enable efficient generation and simulation of models containing stochastic ion channels distributed across dendritic and axonal membranes.
+OWNX Comparison of five morphologically distinct neuronal cell types reveals that when all simulated neurons contain identical densities of stochastic ion channels, the amplitude of stochastic membrane potential fluctuations differs between cell types and depends on sub-cellular location.
+MISC For typical neurons, the amplitude of membrane potential fluctuations depends on channel kinetics as well as open probability.
+OWNX Using a detailed model of a hippocampal CA1 pyramidal neuron, we show that when intrinsic ion channels gate stochastically, the probability of initiation of dendritic or somatic spikes by dendritic synaptic input varies continuously between zero and one, whereas when ion channels gate deterministically, the probability is either zero or one.
+OWNX At physiological firing rates, stochastic gating of dendritic ion channels almost completely accounts for probabilistic somatic and dendritic spikes generated by the fully stochastic model.
+OWNX These results suggest that the consequences of stochastic ion channel gating differ globally between neuronal cell-types and locally between neuronal compartments.
+OWNX Whereas dendritic neurons are often assumed to behave deterministically, our simulations suggest that a direct consequence of stochastic gating of intrinsic ion channels is that spike output may instead be a probabilistic function of patterns of synaptic input to dendrites.
+### introduction ###
+MISC The appropriate level of physical detail required to understand how complex processes such as cognition and behavior emerge from more simple biological structures is unclear CITATION, CITATION.
+MISC For example, while it is possible to account for certain aspects of nervous system function using models that represent each neuron as a simple integrate and fire device, it is increasingly clear that this approach does not capture the full range of computations that many real neurons carry out CITATION, CITATION.
+MISC Dendritic and axonal morphology are defining features of neuronal cell types and have important influences on the computations that a neuron performs CITATION.
+MISC Differences in morphology determine how neurons respond to synaptic input and are sufficient to produce distinct patterns of spontaneous activity CITATION and degrees of action potential back-propagation from the soma into the dendrites CITATION.
+MISC Cable theory and compartmental modeling provide a foundation for predicting the propagation of electrical signals in the dendrites and axons of neurons CITATION, CITATION.
+CONT However, while the assumption that transitions between open and closed states of ion channels can be treated as a deterministic process may be sufficient for some purposes, recent evidence suggests that stochastic transitions between the states of individual ion channels could influence computations carried out by neurons CITATION CITATION.
+MISC Stochastic opening and closing of ion channels causes noisy fluctuations in the current or voltage recorded from a neuron CITATION CITATION.
+CONT While cable theory suggests that fluctuations of this kind might be particularly important in fine structures such as axons and dendrites CITATION, we nevertheless know very little about how neuronal morphology and stochastic gating of ion channels interact to determine how neurons respond to synaptic input.
+MISC Given the difficulty of reducing detailed morphological models to simple analytical forms that could also incorporate stochastic gating of individual ion channels CITATION, experimentally constrained numerical simulations will be important to enable these issues to be explored systematically.
+CONT Investigation of stochastic ion channel gating using numerical simulations has been limited by trades-offs between simulation accuracy and computation time CITATION.
+MISC A simple approach is to add noise sources to deterministic models.
+CONT However, as ion channels have multiple functional states with transitions that often depend on the membrane voltage CITATION, CITATION, CITATION, CITATION, this may not accurately account for the noise introduced by ion channel currents.
+MISC A more accurate alternative is to explicitly model transitions between different functional states for each ion channel on a neuron's membrane.
+CONT However, for neurons with complex axonal or dendritic architectures there are two substantial obstacles to this approach.
+CONT First, typical central neurons express large numbers of ion channels and simulations must be repeated many times to obtain statistically valid descriptions CITATION.
+CONT This is a formidable computational task and even relatively straightforward simulations of the consequences of stochastic channel gating can require substantial computing time.
+CONT Second, each neuronal ion channel occupies a specific location on the extra-cellular membrane, whereas most neuronal models represent the distribution of ion channels as the density of a deterministic conductance across an area of membrane.
+CONT Although this formalism has been successful for simulating many aspects of neuronal activity, it is of less use for models that explore the consequences of the localization of individual ion channels, for example to evaluate the macroscopic effects of short range interactions between ion channels and other signaling molecules CITATION, or the consequences of spatially heterogeneous distributions of ion channels within relatively small sub-cellular structures such as dendritic spines and axon terminals CITATION, CITATION .
+AIMX To address the functional consequences of stochastic ion channel gating in neurons with extensive dendritic or axonal arborizations we developed a parallel stochastic ion channel simulator, which enables efficient simulation of the electrical activity of neurons with complex morphologies and arbitrary localization of stochastic ion channels on the extracellular membrane, while also addressing limitations of previous approaches.
+OWNX We have also developed an interactive tool for visualization and development of models of neurons containing uniquely located ion channels.
+OWNX Here, we illustrate the use of PSICS and ICING, outline the computational strategies used and provide benchmark data for evaluation.
+OWNX We then identify previously unappreciated differences between the effects of stochastic ion channel gating on somatic and dendritic membrane potential activity in several different morphological classes of neuron.
+OWNX We show that the consequences of stochastic gating depend on dendritic morphology and suggest novel functional roles for the kinetics of ion channel gating.
+BASE Using a previously well-validated realistic model of a CA1 pyramidal neuron we demonstrate that stochastic ion channel gating influences spike output in response to dendritic synaptic input.
+OWNX We show that stochastic gating of axonal or dendritic ion channels substantially modifies synaptically driven dendritic and axonal spike output, with stochastic gating of voltage-dependent sodium and potassium channels having the greatest impact and hyperpolarization-activated channels the least.
+OWNX By demonstrating that neuronal responses to dendritic synaptic input can be intrinsically probabilistic, these results offer a new and general perspective on synaptic integration by central neurons.
+OWNX Full documentation for PSICS/ICING as well as the software, source code and examples are available from the project website .
+### abstract ###
+MISC Alternative splicing contributes to both gene regulation and protein diversity.
+AIMX To discover broad relationships between regulation of alternative splicing and sequence conservation, we applied a systems approach, using oligonucleotide microarrays designed to capture splicing information across the mouse genome.
+OWNX In a set of 22 adult tissues, we observe differential expression of RNA containing at least two alternative splice junctions for about 40 percent of the 6,216 alternative events we could detect.
+OWNX Statistical comparisons identify 171 cassette exons whose inclusion or skipping is different in brain relative to other tissues and another 28 exons whose splicing is different in muscle.
+OWNX A subset of these exons is associated with unusual blocks of intron sequence whose conservation in vertebrates rivals that of protein-coding exons.
+OWNX By focusing on sets of exons with similar regulatory patterns, we have identified new sequence motifs implicated in brain and muscle splicing regulation.
+OWNX Of note is a motif that is strikingly similar to the branchpoint consensus but is located downstream of the 5 splice site of exons included in muscle.
+OWNX Analysis of three paralogous membrane-associated guanylate kinase genes reveals that each contains a paralogous tissue-regulated exon with a similar tissue inclusion pattern.
+OWNX While the intron sequences flanking these exons remain highly conserved among mammalian orthologs, the paralogous flanking intron sequences have diverged considerably, suggesting unusually complex evolution of the regulation of alternative splicing in multigene families.
+### introduction ###
+MISC Splicing is an essential process that constructs protein coding messenger RNA sequences using tiny segments of information buried in the much larger primary transcripts of the eukaryotic gene.
+MISC Regulated alternative splicing can create different protein coding sequences under different biological circumstances, allowing the production of functionally related but distinct proteins.
+MISC In addition, alternative splicing can mediate the repression of gene expression by stimulating the formation of transcripts subject to nonsense-mediated decay CITATION CITATION.
+MISC Splicing patterns seem distinct in the vertebrate nervous system compared to other tissues CITATION, CITATION, and it is tempting to hypothesize that neural alternative splicing contributed to the rapid evolution of the vertebrate brain without large increases in gene number CITATION .
+MISC Biochemical analysis of alternative splicing has shown that numerous RNA binding proteins influence the use of specific splice sites to stimulate splicing events that lead to particular mRNA isoforms CITATION, CITATION.
+MISC These RNA binding proteins may activate or repress the use of splice sites by binding to nearby sequences in the exon or in the intron.
+MISC In many cases, multiple RNA binding proteins combine to create repressing and activating influences that produce patterns of splicing control CITATION, CITATION.
+MISC Some proteins, such as SR proteins and the CELF proteins, have mostly activating roles, whereas others, such as hnRNP A1, PTB, and nPTB, have mostly repressing roles.
+MISC Certain proteins can either activate or repress splicing in different contexts, depending on the position of their binding sites or the expression of other RNA binding proteins CITATION, CITATION .
+MISC A complete catalog of the RNA sequences corresponding to the enhancers and silencers bound by splicing regulatory proteins would greatly aid the understanding of splicing regulatory networks.
+MISC Thus far, there are only a handful of splicing regulators whose corresponding RNA binding motifs have been identified, whereas there may be many splicing regulators among the hundreds of RNA binding proteins encoded by the mouse genome.
+MISC In addition, several related but distinct genes produce proteins that bind the same or overlapping sets of sequences; for example, Fox-1 and RBM9 each bind UGCAUG CITATION, CITATION, and the branchpoint binding protein SF1 and the protein quaking each bind UACUAAC-like motifs CITATION CITATION.
+MISC Adding to this complexity is the tendency for the mRNAs of RNA binding proteins to be alternatively spliced, leading to multiple RNA binding protein isoforms with potentially different functions.
+CONT Currently, the methods available for expanding the list of known regulators and their target sequences are limited, and the development of this catalog is in the early stage CITATION .
+MISC Much of the available genomic information on alternative splicing is derived by the alignment of large numbers of expressed sequence tags and messenger RNAs to genome sequences.
+MISC The analysis of exons that appear to be constitutive or alternative has led to the successful identification of many distinguishing features of alternatively spliced regions CITATION CITATION, even allowing their accurate prediction without cDNA evidence CITATION, CITATION, CITATION.
+CONT Although cDNA libraries have been invaluable for discovering general features of alternatively spliced exons, it is difficult to connect specific regulatory sequences to specific biological conditions with confidence due to variable and sometimes missing information about the source materials and methods of cDNA library construction.
+CONT The relatively low number of transcripts present from any one gene also makes it difficult to estimate differences in expression levels using library representation as a measure.
+CONT Thus, more direct methods are needed to associate alternative splicing events with underlying biological conditions.
+MISC The recent application of microarray technology to questions of splicing and splicing regulation promises to reveal parallel connections between many splicing events and specific biological or experimental conditions CITATION CITATION.
+CONT Analysis of experimental changes in splicing for many genes simultaneously should reveal biological conditions necessary for proper splicing regulation in a way that analysis of cDNA libraries cannot, and with breadth that cannot be achieved by analysis of a reporter construct or a few endogenous target genes.
+AIMX To demonstrate this, we constructed a DNA microarray designed to capture splicing information for about 6,200 alternative events in the mouse transcriptome, using a combination of splice junction and exon probes, and have hybridized RNA from 22 adult mouse tissues.
+AIMX We examine splicing in these tissues by asking three questions.
+OWNX First we ask, Which RNA isoforms are present in a particular tissue sample?
+OWNX To answer this simple question, we used a new method based on comparing the intensity of the probes in a probe set to the distribution of intensities from all probes with similar G C level.
+BASE This is similar in spirit although different in approach to the present-absent calls from Affymetrix MAS 5.0 algorithms CITATION, as this microarray did not contain mismatch probes.
+OWNX Using RT-PCR, we show that this method has a true-positive rate of 85 percent.
+OWNX Second we ask, Which RNA isoforms are differentially expressed across the tissues examined?
+OWNX For each RNA isoform, the intensities of the isoform-specific junction probes were examined across tissues using the Kruskal-Wallis statistical test.
+OWNX After correcting for multiple testing, about 40 percent of the 6,216 total alternative splicing events examined were found to have more than one RNA form that was differentially expressed, indicating widespread tissue differences in splicing over the tissues.
+OWNX Third we ask, Which cassette exons are included differentially between brain and nonbrain tissues?
+OWNX To answer this, we used a regression-based bootstrapping method, which also allows an estimate of the relative change in skipping and inclusion in the two sample groups.
+OWNX We analyzed the intron sequences associated with exon skipping events that are differentially regulated in brain or muscle relative to other tissues and found unusual patterns of sequence conservation that provide new information about tissue regulation of alternative splicing and its evolution.

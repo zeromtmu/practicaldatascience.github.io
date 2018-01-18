@@ -1,0 +1,25 @@
+/*****
+Friendship Network
+*****/
+
+digraph G {
+  graph [splines=true overlap=false]
+  node  [shape=ellipse, width=0.3, height=0.3]
+  0 [label="Adam"];
+  1 [label="Brandon"];
+  2 [label="Charlie"];
+  3 [label="Daniel"];
+  4 [label="Eric"];
+  0 -> 1;
+  0 -> 3;
+  0 -> 4;
+  1 -> 0;
+  1 -> 2;
+  1 -> 3;
+  1 -> 4;
+  2 -> 1;
+  3 -> 0;
+  4 -> 2;
+  4 -> 3;
+  label = "\nFriendship Network\n";  fontsize=24;
+}

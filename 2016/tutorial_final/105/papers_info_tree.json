@@ -1,0 +1,143 @@
+[{
+    "name": "HAMILTON",
+    "children": [{
+        "name": "1787-11",
+        "children": [
+            {"date": "1787-11-20", "length": 12325, "name": "No. 8"},
+            {"date": "1787-11-27", "length": 13105, "name": "No. 12"}
+        ]}, {
+        "name": "1787-12",
+        "children": [
+            {"date": "1787-12-04", "length": 12247, "name": "No. 16"},
+            {"date": "1787-12-14", "length": 21071, "name": "No. 22"},
+            {"date": "1787-12-18", "length": 10882, "name": "No. 23"},
+            {"date": "1787-12-21", "length": 11833, "name": "No. 25"},
+            {"date": "1787-12-25", "length": 8563, "name": "No. 27"},
+            {"date": "1787-12-28", "length": 11843, "name": "No. 30"}
+        ]}, {
+        "name": "1788-01",
+        "children": [
+            {"date": "1788-01-10", "length": 13140, "name": "No. 29"},
+            {"date": "1788-01-01", "length": 10365, "name": "No. 31"},
+            {"date": "1788-01-03", "length": 8962, "name": "No. 32"},
+            {"date": "1788-01-03", "length": 9977, "name": "No. 33"},
+            {"date": "1788-01-04", "length": 13112, "name": "No. 34"},
+            {"date": "1788-01-08", "length": 16189, "name": "No. 36"}
+        ]}, {
+        "name": "1788-02",
+        "children": [
+            {"date": "1788-02-22", "length": 11328, "name": "No. 59"},
+            {"date": "1788-02-26", "length": 13392, "name": "No. 60"},
+            {"date": "1788-02-26", "length": 8916, "name": "No. 61"}
+        ]}, {
+        "name": "1788-03",
+        "children": [
+            {"date": "1788-03-07", "length": 12016, "name": "No. 65"},
+            {"date": "1788-03-11", "length": 13253, "name": "No. 66"},
+            {"date": "1788-03-11", "length": 9996, "name": "No. 67"},
+            {"date": "1788-03-14", "length": 8858, "name": "No. 68"},
+            {"date": "1788-03-14", "length": 16324, "name": "No. 69"},
+            {"date": "1788-03-18", "length": 18629, "name": "No. 70"},
+            {"date": "1788-03-18", "length": 18629, "name": "No. 70"},
+            {"date": "1788-03-18", "length": 10125, "name": "No. 71"},
+            {"date": "1788-03-21", "length": 12191, "name": "No. 72"},
+            {"date": "1788-03-21", "length": 13920, "name": "No. 73"},
+            {"date": "1788-03-25", "length": 5951, "name": "No. 74"}
+        ]}, {
+        "name": "1788-04",
+        "children": [
+            {"date": "1788-04-01", "length": 13569, "name": "No. 76"},
+            {"date": "1788-04-04", "length": 11794, "name": "No. 77"}
+        ]},
+        {"date": "", "length": 9447, "name": "No. 1"},
+        {"date": "", "length": 12067, "name": "No. 6"},
+        {"date": "", "length": 13999, "name": "No. 7"},
+        {"date": "", "length": 12156, "name": "No. 9"},
+        {"date": "", "length": 15174, "name": "No. 11"},
+        {"date": "", "length": 5811, "name": "No. 13"},
+        {"date": "", "length": 18587, "name": "No. 15"},
+        {"date": "", "length": 9795, "name": "No. 17"},
+        {"date": "", "length": 12112, "name": "No. 21"},
+        {"date": "", "length": 11020, "name": "No. 24"},
+        {"date": "", "length": 14100, "name": "No. 26"},
+        {"date": "", "length": 9664, "name": "No. 28"},
+        {"date": "", "length": 13541, "name": "No. 35"},
+        {"date": "", "length": 11522, "name": "No. 75"},
+        {"date": "", "length": 18277, "name": "No. 78"},
+        {"date": "", "length": 6079, "name": "No. 79"},
+        {"date": "", "length": 14990, "name": "No. 80"},
+        {"date": "", "length": 22475, "name": "No. 81"},
+        {"date": "", "length": 9239, "name": "No. 82"},
+        {"date": "", "length": 33842, "name": "No. 83"},
+        {"date": "", "length": 23422, "name": "No. 84"},
+        {"date": "", "length": 15917, "name": "No. 85"}
+    ]
+},
+{
+    "name": "MADISON",
+    "children": [{
+        "name": "1787-11",
+        "children": [
+            {"date": "1787-11-23", "length": 18203, "name": "No. 10"},
+            {"date": "1787-11-30", "length": 12872, "name": "No. 14"}
+        ]}, {
+        "name": "1788-01",
+        "children": [
+            {"date": "1788-01-11", "length": 16894, "name": "No. 37"},
+            {"date": "1788-01-15", "length": 19854, "name": "No. 38"},
+            {"date": "1788-01-18", "length": 18577, "name": "No. 40"},
+            {"date": "1788-01-22", "length": 17165, "name": "No. 42"},
+            {"date": "1788-01-25", "length": 17731, "name": "No. 44"},
+            {"date": "1788-01-29", "length": 16001, "name": "No. 46"}
+        ]}, {
+        "name": "1788-02",
+        "children": [
+            {"date": "1788-02-01", "length": 17217, "name": "No. 47"},
+            {"date": "1788-02-01", "length": 11696, "name": "No. 48"}
+        ]},
+        {"date": "", "length": 15860, "name": "No. 39"},
+        {"date": "", "length": 21397, "name": "No. 41"},
+        {"date": "", "length": 21075, "name": "No. 43"},
+        {"date": "", "length": 13092, "name": "No. 45"},
+        {"date": "", "length": 12823, "name": "No. 58"}
+    ]
+},
+{
+    "name": "HAMILTON, MADISON",
+    "children": [{
+        "name": "1787-12",
+        "children": [
+            {"date": "1787-12-11", "length": 9813, "name": "No. 20"}
+        ]}, {
+        "name": "1788-02",
+        "children": [
+            {"date": "1788-02-05", "length": 10059, "name": "No. 49"},
+            {"date": "1788-02-05", "length": 6930, "name": "No. 50"},
+            {"date": "1788-02-08", "length": 11744, "name": "No. 51"},
+            {"date": "1788-02-08", "length": 11209, "name": "No. 52"},
+            {"date": "1788-02-12", "length": 13224, "name": "No. 53"},
+            {"date": "1788-02-12", "length": 11995, "name": "No. 54"},
+            {"date": "1788-02-15", "length": 12216, "name": "No. 55"},
+            {"date": "1788-02-19", "length": 9583, "name": "No. 56"},
+            {"date": "1788-02-19", "length": 13146, "name": "No. 57"}
+        ]},
+        {"date": "", "length": 13124, "name": "No. 18"},
+        {"date": "", "length": 12780, "name": "No. 19"},
+        {"date": "", "length": 14393, "name": "No. 62"},
+        {"date": "", "length": 18580, "name": "No. 63"}
+    ]
+},
+{
+    "name": "JAY",
+    "children": [{
+        "name": "1788-03",
+        "children": [
+            {"date": "1788-03-07", "length": 13741, "name": "No. 64"}
+        ]},
+        {"date": "", "length": 10200, "name": "No. 2"},
+        {"date": "", "length": 8838, "name": "No. 3"},
+        {"date": "", "length": 9831, "name": "No. 4"},
+        {"date": "", "length": 8330, "name": "No. 5"}
+    ]
+}
+]
