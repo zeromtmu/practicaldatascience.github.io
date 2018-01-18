@@ -17,7 +17,16 @@ Yes, almost definitely. There is a relatively small waitlist for the 300 version
 Given the size of this course, for all students (including 15-388/15-688A students) the class participation grade will be based upon participating in the course forums on Piazza, and answering poll questions during lectures, not upon speaking up in class.
 
 **Q: Is there a pointer to materials from a previous year?**\\
-A: Yes, the content from the 2016 offering will be available online (right now the 2016 offering is online at [http://www.datasciencecourse.org](http://www.datasciencecourse.org), but we'll post the new link here once the website has switched over to the new version).
+A: Now that the website has transitioned to the new year, we'll post slides from the previous year (but not assignments), to the web page by 1/18.
+
+
+**Q: Can I take the course pass/fail?**
+A: Yes.  You will ultimately need to receive a grade of "C" or higher (according to the final curve), to receiving a pass.
+
+
+**Q: Can I audit the course?**
+A: Yes, but you must complete all the homework assignments and receive a grade of at least 60% in each of them.  You should also enroll in the B section if you wish to audit the grad version.  Audits for the undergrad version will only be offered if space allows (since we cannot offer a B section for 388).  Auditors can optionally submit a tutorial or project, but this is not required.  For the final project, you cannot partner with students who are taking the course for credit.
+
 
 **Q: When will this course be offered again?**\\
 A: Likely in Fall 2019.
