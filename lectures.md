@@ -12,7 +12,7 @@ This page lists the class lectures and recitations, plus additional material (sl
 | --- | --- | :---: | :---: | :---: | :---: |
 | | **Data collection and management** | | | | |
 | 1/17 | Introduction  | [<i class="fa fa-file-pdf-o"></i>](/notes/intro/intro.pdf) | [<i class="fa fa-file-text-o"></i>](/notes/intro) | [<i class="fa fa-video-camera"></i>](https://scs.hosted.panopto.com/Panopto/Pages/Viewer.aspx?id=9fb318db-2179-4391-932c-a86b0147d2c3) | [<i class="fa fa-question"></i>](https://goo.gl/forms/L5IMW0AtGhUx2CJJ2) |
-| 1/22 | Data collection and scraping || | | |
+| 1/22 | Data collection and scraping | [<i class="fa fa-file-pdf-o"></i>](/notes/data_collection/data_collection.pdf)  | | | |
 | 1/24 | Jupyer notebook lab || | | |
 | 1/29 | Relational data || | | |
 | 1/31 | Visualization and data exploration || | | |
