@@ -20,8 +20,8 @@ This page lists the class lectures and recitations, plus additional material (sl
 | 2/7  | Graph and network processing || | | |
 | 2/12 | Free text and natural language processing || | | |
 | 2/14 | Geographic information systems and spatial data || | | |
-| | **Statistical modeling and machine learning** || | | |
 | 2/19 | *Overflow lecture* || | | |
+| | **Statistical modeling and machine learning** || | | |
 | 2/21 | Linear regression || | | |
 | 2/26 | Linear classification || | | |
 | 2/28 | Nonlinear modeling, cross-validation || | | |
